@@ -19,6 +19,7 @@
         <property name="filterChainDefinitions">
             <value>
                 /user/login = anon
+                /user/selectUser = anon
                 /** = authc
             </value>
         </property>

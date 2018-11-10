@@ -23,10 +23,10 @@ public class WebResponse {
     //信息
     private String msg;
 
-    public WebResponse ok(Object data,String msg){
+    public WebResponse ok(Object data){
         this.code = 200;
         this.data = data;
-        this.msg = msg;
+        this.msg = "请求成功";
         return this;
     }
 
@@ -37,4 +37,15 @@ public class WebResponse {
         return this;
     }
 
+    public int getCode() {
+        return code;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
 }

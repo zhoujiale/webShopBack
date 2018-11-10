@@ -55,17 +55,17 @@ public class WebLogAspect {
         }
 
         //url
-        log.info("url={}",request.getRequestURL().toString());
+        log.info("URL: " + request.getRequestURL().toString());
         //method
-        log.info("method={}",request.getMethod());
+        log.info("METHOD: " + request.getMethod());
         //params
-        log.info("params:{}",params.toString());
+        log.info("PARAMS: " + params.toString());
         //ip
-        log.info("ip={}",request.getRemoteAddr());
+        log.info("IP: " + request.getRemoteAddr());
         //类方法
-        log.info("class_method={}",joinPoint.getSignature().getDeclaringTypeName()+"."+ joinPoint.getSignature().getName());
+        log.info("CLASS_METHOD: " + joinPoint.getSignature().getDeclaringTypeName()+"."+ joinPoint.getSignature().getName());
         //参数
-        log.info("args={}", Arrays.toString(joinPoint.getArgs()));
+        //log.info("args={}", Arrays.toString(joinPoint.getArgs()));
     }
 
     @After("webLog()")
@@ -75,7 +75,7 @@ public class WebLogAspect {
 
     @AfterReturning(pointcut = "webLog()",returning = "object")
     public void doAfterReturning(Object object) throws Throwable{
-        log.info("response={}",object);
-        log.info("spend time:{} ms",System.currentTimeMillis() - startTime.get());
+        log.info("RESPONSE: " + object);
+        log.info("SPEND_TIME:"+ (System.currentTimeMillis() - startTime.get()) + "ms");
     }
 }

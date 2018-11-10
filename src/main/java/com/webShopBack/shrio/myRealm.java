@@ -79,12 +79,12 @@ public class myRealm extends AuthorizingRealm{
         if(user==null){
             //账号不存在
             throw new UnknownAccountException();
-        }else if(user.isLocked()){
+        }else if(user.getState() == 1){
             //账号锁定
             throw new LockedAccountException();
         }
         SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user.getUserName(),
-                user.getPassword(), ByteSource.Util.bytes(user.getPasswordSalt()),getName());
+                user.getPassword(), ByteSource.Util.bytes(user.getSalt()),getName());
         return simpleAuthenticationInfo;
     }
 }

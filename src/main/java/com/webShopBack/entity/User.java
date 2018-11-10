@@ -23,28 +23,28 @@ public class User implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    private int id;
+    private int userId;
     //用户名
     private String userName;
     //密码
     private String password;
     //加盐
-    private String passwordSalt;
+    private String salt;
     //状态
-    private boolean locked;
+    private int state;
     //加入时间
     private Date createTime;
 
-    public User() {
-        super();
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
@@ -63,20 +63,20 @@ public class User implements Serializable{
         this.password = password;
     }
 
-    public String getPasswordSalt() {
-        return passwordSalt;
+    public String getSalt() {
+        return salt;
     }
 
-    public void setPasswordSalt(String passwordSalt) {
-        this.passwordSalt = passwordSalt;
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
-    public boolean isLocked() {
-        return locked;
+    public int getState() {
+        return state;
     }
 
-    public void setLocked(boolean locked) {
-        this.locked = locked;
+    public void setState(int state) {
+        this.state = state;
     }
 
     public Date getCreateTime() {
@@ -87,14 +87,26 @@ public class User implements Serializable{
         this.createTime = createTime;
     }
 
+    public User() {
+    }
+
+    public User(int userId, String userName, String password, String salt, int state, Date createTime) {
+        this.userId = userId;
+        this.userName = userName;
+        this.password = password;
+        this.salt = salt;
+        this.state = state;
+        this.createTime = createTime;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
-                ", passwordSalt='" + passwordSalt + '\'' +
-                ", locked=" + locked +
+                ", salt='" + salt + '\'' +
+                ", state=" + state +
                 ", createTime=" + createTime +
                 '}';
     }

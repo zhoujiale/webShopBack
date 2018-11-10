@@ -40,11 +40,11 @@ public class PassWordHelper {
     }
 
     public User encryptPassword(User user){
-        if(user.getPasswordSalt() == null || user.getPasswordSalt().equals("")){
-            user.setPasswordSalt(randomNumberGenerator.nextBytes().toHex());
+        if(user.getSalt() == null || user.getSalt().equals("")){
+            user.setSalt(randomNumberGenerator.nextBytes().toHex());
         }
         String newPassword = new SimpleHash(algorithmName,user.getPassword(),
-                ByteSource.Util.bytes(user.getPasswordSalt()),hashIterations).toHex();
+                ByteSource.Util.bytes(user.getSalt()),hashIterations).toHex();
         user.setPassword(newPassword);
         return user;
     }

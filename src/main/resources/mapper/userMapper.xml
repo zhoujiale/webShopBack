@@ -2,10 +2,18 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.webshop.dao.UserDao">
-    <select id="findByUserName" resultType="User">
-       SELECT userId,userName,password,salt,state
+<mapper namespace="com.webShopBack.dao.UserDao">
+    <resultMap id="userResultMap" type="User">
+        <id property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="salt" column="salt"/>
+        <result property="state" column="state"/>
+        <result property="createTime" column="add_time"/>
+    </resultMap>
+    <select id="findByUserName" resultType="User" resultMap="userResultMap">
+       SELECT user_id,user_name,password,salt,state,add_time
         FROM user
-       WHERE userName = #{userName}
+       WHERE user_name = #{userName}
     </select>
 </mapper>
