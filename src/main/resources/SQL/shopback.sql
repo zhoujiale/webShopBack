@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: shopback
+-- Host: localhost    Database: shop_back
 -- ------------------------------------------------------
 -- Server version	5.7.22-log
 
@@ -86,7 +86,7 @@ CREATE TABLE `user` (
   `state` int(11) DEFAULT '0' COMMENT '状态 0为正常，1为锁定',
   `add_time` datetime DEFAULT NULL COMMENT '添加时间',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,7 +111,7 @@ CREATE TABLE `user_permission` (
   `permission_name` varchar(45) DEFAULT NULL COMMENT '权限名称',
   `permission_description` varchar(45) DEFAULT NULL COMMENT '权限描述',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='角色权限表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色权限表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,15 +128,15 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `user_role`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET @saved_cs_client     = @@character_set_client ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `user_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '角色编号',
   `role_name` varchar(45) DEFAULT NULL COMMENT '角色名称',
   `role_description` varchar(45) DEFAULT NULL COMMENT '角色描述',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='用户角色表';
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色表';
+ SET character_set_client = utf8 ;
 
 --
 -- Dumping data for table `user_role`

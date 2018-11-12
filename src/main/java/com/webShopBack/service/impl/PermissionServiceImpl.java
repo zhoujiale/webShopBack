@@ -5,6 +5,8 @@ import com.webShopBack.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -29,6 +31,8 @@ public class PermissionServiceImpl implements PermissionService {
      */
     @Override
     public Set<String> findPermissionByUserName(String userName) {
-        return permissionDao.findPermissionByUserName(userName);
+        List<String> permissionList = permissionDao.findPermissionByUserName(userName);
+        Set<String> permissionSet = new HashSet<>(permissionList);
+        return permissionSet;
     }
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webShopBack.dao.RoleDao">
+    <resultMap id="roleResultType" type="String">
+        <result property="roleName" column="role_name"/>
+        <result property="roleDescription" column="role_description"/>
+        <result property="available" column="available"/>
+    </resultMap>
+    <select id="findRoleByUserName" resultType="String" resultMap="roleResultType">
+        SELECT role_name
+         FROM auth_user_role  aur LEFT JOIN
+             (SELECT * FROM user_role WHERE available = 1) ur
+             ON aur.role_id = ur.id
+        WHERE user_id = (
+            SELECT user_id FROM user WHERE user_name = #{userName}
+        )
+    </select>
+</mapper>

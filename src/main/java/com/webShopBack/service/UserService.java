@@ -23,7 +23,9 @@ public interface UserService {
       * @author zhou
       * @created  2018/10/19 11:16
       * @param :userName,password
+      * @param userName
+      * @param password
       * @return :WebResponse
       */
-      void addUser(User user);
+      WebResponse addUser(String userName, String password);
 }

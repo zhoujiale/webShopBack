@@ -3,6 +3,8 @@ package com.webShopBack.dao;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -16,12 +18,9 @@ public interface RoleDao {
     /**
      * @description 根据用户名查询角色
      * @author zhou
-     * @created  2018/10/23 14:30
-     * @param
-     * @return
+     * @created  2018/11/12 10:53
+     * @param 
+     * @return 
      */
-    @Select("select roleName from user_role where id in(" +
-            "  select role_id from auth_user_role where user_id in(" +
-            "  select userId from user where userName =' #{userName}))")
-    Set<String> findRoleByUserName(String userName);
+    List<String> findRoleByUserName(String userName);
 }

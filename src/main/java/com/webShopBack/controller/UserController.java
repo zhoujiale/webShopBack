@@ -6,6 +6,8 @@ package com.webShopBack.controller;/**
 
 import com.webShopBack.entity.User;
 import com.webShopBack.response.WebResponse;
+import com.webShopBack.service.PermissionService;
+import com.webShopBack.service.RoleService;
 import com.webShopBack.service.UserService;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
@@ -17,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import sun.net.www.http.HttpClient;
+
+
+import java.util.Set;
 
 import static com.webShopBack.utils.StringUtil.isEmpty;
 
@@ -36,6 +42,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private PermissionService permissionService;
 
     /**
      * @description 登陆
@@ -82,20 +92,22 @@ public class UserController {
      * @return :webResponse
      */
     @RequestMapping(value = "/addUser",method = RequestMethod.POST)
-    public WebResponse addUser(String userName,String password){
+    public WebResponse addUser(String userName,String password,int roleId){
 
         if(isEmpty(userName)||isEmpty(password)){
-
             log.error("用户名或密码为空");
             return new WebResponse().error(401,null,"用户名或密码为空");
         }
-        //WebResponse webResponse = userService.addUser(userName,password);
-        return null;
+        WebResponse webResponse = userService.addUser(userName,password);
+        return webResponse;
     }
 
-    @RequestMapping(value = "/selectUser",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-    public WebResponse selectUser(String userName){
-        User user = userService.findByUserName(userName);
-        return new WebResponse().ok(user);
+    @RequestMapping(value = "/selectPermission",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public WebResponse selectRole(String userName){
+    Set<String> permission = permissionService.findPermissionByUserName(userName);
+        return new WebResponse().ok(permission);
     }
+
+
+
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webShopBack.dao.PermissionDao">
+    <resultMap id="permissionResultType" type="String">
+        <result property="permissionName" column="permission_name"/>
+        <result property="permissionDescription" column="permission_description"/>
+        <result property="available" column="available"/>
+    </resultMap>
+    <select id="findPermissionByUserName" resultType="String" resultMap="permissionResultType">
+      SELECT permission_name FROM auth_role_permission arp
+       LEFT JOIN user_permission u ON arp.permission_id = u.id
+              WHERE arp.role_id =
+               (SELECT role_id
+                FROM auth_user_role  aur LEFT JOIN
+                    (SELECT * FROM user_role WHERE available = 1) ur
+                        ON aur.role_id = ur.id
+                WHERE user_id = (
+                    SELECT user_id FROM user WHERE user_name = #{userName}
+                ))
+    </select>
+</mapper>

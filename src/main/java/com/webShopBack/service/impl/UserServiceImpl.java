@@ -6,10 +6,14 @@ package com.webShopBack.service.impl;/**
 
 import com.webShopBack.entity.User;
 import com.webShopBack.dao.UserDao;
+import com.webShopBack.response.WebResponse;
 import com.webShopBack.service.UserService;
 import com.webShopBack.shrio.PassWordHelper;
+import com.webShopBack.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 /**
  *@ClassName UserServiceImpl
@@ -39,8 +43,9 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public void addUser(User user) {
-        User newUser  = new PassWordHelper().encryptPassword(user);
-        userDao.addUser(newUser);
+    public WebResponse addUser(String userName, String password) {
+        return null;
     }
+
+
 }

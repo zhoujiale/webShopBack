@@ -15,46 +15,47 @@ import java.io.Serializable;
  **/
 public class Permission implements Serializable{
 
-    private int id;
+    private int permissionId;
     //权限
-    private String permission;
+    private String permissionName;
     //权限描述
-    private String description;
+    private String permissionDescription;
     //是否可用
-    private Boolean available = false;
+    private Boolean available = true;
 
     public Permission() {
 
     }
 
-    public Permission( String permission, String description, Boolean available) {
-        this.permission = permission;
-        this.description = description;
+    public Permission(int permissionId, String permissionName, String permissionDescription, Boolean available) {
+        this.permissionId = permissionId;
+        this.permissionName = permissionName;
+        this.permissionDescription = permissionDescription;
         this.available = available;
     }
 
-    public int getId() {
-        return id;
+    public int getPermissionId() {
+        return permissionId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPermissionId(int permissionId) {
+        this.permissionId = permissionId;
     }
 
-    public String getPermission() {
-        return permission;
+    public String getPermissionName() {
+        return permissionName;
     }
 
-    public void setPermission(String permission) {
-        this.permission = permission;
+    public void setPermissionName(String permissionName) {
+        this.permissionName = permissionName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getPermissionDescription() {
+        return permissionDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPermissionDescription(String permissionDescription) {
+        this.permissionDescription = permissionDescription;
     }
 
     public Boolean getAvailable() {
@@ -68,9 +69,9 @@ public class Permission implements Serializable{
     @Override
     public String toString() {
         return "Permission{" +
-                "id=" + id +
-                ", permission='" + permission + '\'' +
-                ", description='" + description + '\'' +
+                "permissionId=" + permissionId +
+                ", permissionName='" + permissionName + '\'' +
+                ", permissionDescription='" + permissionDescription + '\'' +
                 ", available=" + available +
                 '}';
     }

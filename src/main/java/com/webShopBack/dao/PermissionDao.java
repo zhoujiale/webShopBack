@@ -3,6 +3,7 @@ package com.webShopBack.dao;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,9 +21,5 @@ public interface PermissionDao {
      * @param
      * @return
      */
-    @Select("select permissionName from user_permission where id in(" +
-            "select permission_id from auh_role_permission where role_id in" +
-            " (select role_id from auth_user_role where user_id in(select " +
-            "  userId from user where userName= #{userName})))")
-    Set<String> findPermissionByUserName(String userName);
+    List<String> findPermissionByUserName(String userName);
 }

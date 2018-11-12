@@ -6,10 +6,11 @@ package com.webShopBack.service.impl;/**
 
 import com.webShopBack.dao.RoleDao;
 import com.webShopBack.service.RoleService;
+import org.apache.ibatis.javassist.bytecode.Descriptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.*;
 
 /**
  *@ClassName RoleServiceImpl
@@ -33,6 +34,8 @@ public class RoleServiceImpl implements RoleService{
      */
     @Override
     public Set<String> findRoleByUserName(String userName) {
-        return roleDao.findRoleByUserName(userName);
+        List<String> roleList =  roleDao.findRoleByUserName(userName);
+        Set<String> keySet = new HashSet<>(roleList);
+        return keySet;
     }
 }

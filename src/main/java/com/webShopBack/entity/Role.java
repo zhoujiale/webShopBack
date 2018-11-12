@@ -15,47 +15,48 @@ import java.io.Serializable;
  **/
 public class Role implements Serializable{
 
-    private int id;
+    private int roleId;
 
     //角色名
-    private String role;
+    private String roleName;
     //角色描述
-    private String description;
+    private String roleDescription;
     //是否可用
-    private Boolean available = false;
+    private Boolean available = true;
 
     public Role() {
 
     }
 
-    public Role(String role, String description, Boolean available) {
-        this.role = role;
-        this.description = description;
+    public Role(int roleId,String roleName, String roleDescription, Boolean available) {
+        this.roleId = roleId;
+        this.roleName = roleName;
+        this.roleDescription = roleDescription;
         this.available = available;
     }
 
-    public int getId() {
-        return id;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 
-    public String getRole() {
-        return role;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoleName(String role) {
+        this.roleName = role;
     }
 
-    public String getDescription() {
-        return description;
+    public String getRoleDescription() {
+        return roleDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setRoleDescription(String description) {
+        this.roleDescription = description;
     }
 
     public Boolean getAvailable() {
@@ -69,9 +70,9 @@ public class Role implements Serializable{
     @Override
     public String toString() {
         return "RoleService{" +
-                "id=" + id +
-                ", role='" + role + '\'' +
-                ", description='" + description + '\'' +
+                "roleId=" + roleId +
+                ", roleName='" + roleName + '\'' +
+                ", roleDescription='" + roleDescription + '\'' +
                 ", available=" + available +
                 '}';
     }
