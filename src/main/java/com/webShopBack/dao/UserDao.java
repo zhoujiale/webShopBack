@@ -5,6 +5,7 @@ package com.webShopBack.dao;/**
  */
 
 import com.webShopBack.entity.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -17,7 +18,39 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDao {
     
+    /**
+     * @description 根据用户名查询用户信息
+     * @author zhou
+     * @created  2018/11/13 15:23    
+     * @param 
+     * @return 
+     */
     User findByUserName(String userName);
 
-    void addUser(User newUser);
+    /**
+     * @description 添加新用户
+     * @author zhou
+     * @created  2018/11/13 15:28
+     * @param 
+     * @return 
+     */
+    int addUser(User user);
+
+    /**
+     * @description 为用户添加角色
+     * @author zhou
+     * @created  2018/11/13 15:36
+     * @param
+     * @return
+     */
+    int addRole(@Param("userName") String userName,@Param("roleId") int roleId);
+
+    /**
+     * @description 禁用用户
+     * @author zhou
+     * @created  2018/11/13 16:35
+     * @param
+     * @return
+     */
+    int lockedUser(@Param("userName") String userName,@Param("state") int state);
 }

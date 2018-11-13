@@ -55,15 +55,15 @@ public class WebLogAspect {
         }
 
         //url
-        log.info("URL: " + request.getRequestURL().toString());
+        log.debug("URL: " + request.getRequestURL().toString());
         //method
-        log.info("METHOD: " + request.getMethod());
+        log.debug("METHOD: " + request.getMethod());
         //params
-        log.info("PARAMS: " + params.toString());
+        log.debug("PARAMS: " + params.toString());
         //ip
-        log.info("IP: " + request.getRemoteAddr());
+        log.debug("IP: " + request.getRemoteAddr());
         //类方法
-        log.info("CLASS_METHOD: " + joinPoint.getSignature().getDeclaringTypeName()+"."+ joinPoint.getSignature().getName());
+        log.debug("CLASS_METHOD: " + joinPoint.getSignature().getDeclaringTypeName()+"."+ joinPoint.getSignature().getName());
         //参数
         //log.info("args={}", Arrays.toString(joinPoint.getArgs()));
     }
@@ -75,7 +75,7 @@ public class WebLogAspect {
 
     @AfterReturning(pointcut = "webLog()",returning = "object")
     public void doAfterReturning(Object object) throws Throwable{
-        log.info("RESPONSE: " + object);
-        log.info("SPEND_TIME:"+ (System.currentTimeMillis() - startTime.get()) + "ms");
+        log.debug("RESPONSE: " + object);
+        log.debug("SPEND_TIME:"+ (System.currentTimeMillis() - startTime.get()) + "ms");
     }
 }

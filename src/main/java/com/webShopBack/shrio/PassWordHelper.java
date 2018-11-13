@@ -10,14 +10,16 @@ import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  *@ClassName PassWordHelper
- *@Description TODO
+ *@Description 加盐加密
  *@Author zhou
  *Date 2018/10/19 11:55
  *@Version 1.0
  **/
+@Component
 public class PassWordHelper {
 
     private RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();

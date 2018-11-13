@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.webShopBack.dao.UserDao">
+
     <resultMap id="userResultMap" type="User">
         <id property="userId" column="user_id"/>
         <result property="userName" column="user_name"/>
@@ -11,9 +12,37 @@
         <result property="state" column="state"/>
         <result property="createTime" column="add_time"/>
     </resultMap>
+
+    <resultMap id="userRoleMap" type="UserRole">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="roleId" column="role_id"/>
+    </resultMap>
+    <!--根据用户名查询-->
     <select id="findByUserName" resultType="User" resultMap="userResultMap">
        SELECT user_id,user_name,password,salt,state,add_time
         FROM user
        WHERE user_name = #{userName}
     </select>
+    <!--添加用户-->
+    <insert id="addUser" parameterType="User" flushCache="true"
+            useGeneratedKeys="true">
+        INSERT INTO user(user_name, password, salt, state, add_time)
+                VALUES (#{userName},#{password},#{salt},#{state},#{createTime})
+    </insert>
+    <!--对用户添加角色-->
+    <insert id="addRole" parameterType="UserRole" flushCache="true"
+            useGeneratedKeys="true">
+        INSERT INTO auth_user_role(user_id, role_id)
+                VALUES(
+                    (SELECT user_id FROM user WHERE user_name = #{userName}),
+                    #{roleId}
+                )
+    </insert>
+    <!--禁用用户-->
+    <update id="lockedUser" parameterType="User">
+        UPDATE user SET state = #{state}
+          WHERE user_name = #{userName}
+    </update>
+
 </mapper>

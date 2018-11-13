@@ -9,16 +9,15 @@ import com.webShopBack.response.WebResponse;
 import com.webShopBack.service.PermissionService;
 import com.webShopBack.service.RoleService;
 import com.webShopBack.service.UserService;
+import com.webShopBack.utils.IntUtil;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sun.net.www.http.HttpClient;
 
 
@@ -54,8 +53,9 @@ public class UserController {
      * @param
      * @return
      */
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public WebResponse UserLogin(String userName,String password){
+    @RequestMapping(value = "/login")
+    public WebResponse UserLogin(@RequestParam("userName") String userName,@RequestParam("password") String password,
+                                 @RequestParam(value = "rememberMe",defaultValue = "false") boolean rememberMe){
         if(isEmpty(userName)||isEmpty(password)){
             log.error("用户名或密码为空");
             return new WebResponse().error(401,null,"用户名或密码为空");
@@ -64,9 +64,10 @@ public class UserController {
         //判断用户是否登陆
 
         if(!currentUser.isAuthenticated()) {
-            UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(userName, password);
+            UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
             try {
-                currentUser.login(usernamePasswordToken);
+                //token.setRememberMe(rememberMe);
+                currentUser.login(token);
             } catch (UnknownAccountException uae) {
                 log.error("账号不存在");
                 return new WebResponse().error(402, null, "账号不存在");
@@ -81,7 +82,7 @@ public class UserController {
                 return new WebResponse().error(405, null, "未知错误");
             }
         }
-        return new WebResponse().ok("登陆成功");
+        return new WebResponse().ok(userName + "登陆成功");
     }
 
     /**
@@ -98,8 +99,47 @@ public class UserController {
             log.error("用户名或密码为空");
             return new WebResponse().error(401,null,"用户名或密码为空");
         }
-        WebResponse webResponse = userService.addUser(userName,password);
+        if(IntUtil.isEmpty(roleId)){
+            log.error("角色id为空");
+            return new WebResponse().error(402,null,"角色id为空");
+        }
+        WebResponse webResponse = userService.addUser(userName,password,roleId);
         return webResponse;
+    }
+
+    /**
+     * @description 禁用/解禁用户
+     * @author zhou
+     * @created  2018/11/13 16:40
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/lockedUser",method = RequestMethod.POST)
+    public WebResponse lockedUser(String userName,int state){
+        if(isEmpty(userName)){
+            log.error("用户名为空");
+            return new WebResponse().error(401,null,"用户名为空");
+        }
+        WebResponse webResponse = userService.lockedUser(userName,state);
+        return webResponse;
+    }
+
+    /**
+     * @description 退出登录
+     * @author zhou
+     * @created  2018/11/13 11:23
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/loginOut",method = RequestMethod.POST)
+    public WebResponse loginOut(String userName){
+        if(isEmpty(userName)){
+            log.error("用户名为空");
+            return new WebResponse().error(401,null,"用户名为空");
+        }
+        Subject currentUser = SecurityUtils.getSubject();
+        currentUser.logout();
+        return new WebResponse().ok(userName + "退出登录");
     }
 
     @RequestMapping(value = "/selectPermission",method = RequestMethod.POST,produces = "application/json;charset=utf-8")

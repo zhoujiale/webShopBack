@@ -5,8 +5,7 @@
        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
-
-
+    <!--shrio过滤器-->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <!--未授权-->
@@ -19,21 +18,23 @@
         <property name="filterChainDefinitions">
             <value>
                 /user/login = anon
-                /user/selectPermission = anon
                 /** = authc
             </value>
         </property>
     </bean>
-
+    <!--表单验证过滤器-->
     <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
         <property name="usernameParam" value="userName"/>
         <property name="passwordParam" value="passWord"/>
         <property name="loginUrl" value="/"/>
+        <property name="rememberMeParam" value="rememberMe"/>
     </bean>
-
+    <!--安全管理器-->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
         <property name="realm" ref="myRealm"/>
+        <property name="cacheManager" ref="cacheManger"/>
+        <property name="rememberMeManager" ref="RememberMeManager"/>
         <!-- By default the servlet container sessions will be used.  Uncomment this line
              to use shiro's native sessions (see the JavaDoc for more): -->
         <!-- <property name="sessionMode" value="native"/> -->
@@ -72,4 +73,20 @@
     </bean>
     <!--Client-side Configuration-->
     <bean id="secureRemoteInvocationFactory" class="org.apache.shiro.spring.remoting.SecureRemoteInvocationFactory"/>
+
+    <!--rememberMe管理器-->
+    <bean class="org.apache.shiro.web.mgt.CookieRememberMeManager"
+                 id="RememberMeManager">
+    <property name="cookie" ref="cookie"/>
+    <property name="cipherKey"
+              value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
+</bean>
+    <!--SessionCookie模板-->
+    <bean class="org.apache.shiro.web.servlet.SimpleCookie" id="cookie">
+        <constructor-arg value="rememberMe"/>
+        <!--<property name="httpOnly" value="true"/>-->
+        <property name="maxAge" value="36000"/>
+    </bean>
+
+
 </beans>
