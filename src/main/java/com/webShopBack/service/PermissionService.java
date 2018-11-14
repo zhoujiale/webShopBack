@@ -1,5 +1,7 @@
 package com.webShopBack.service;
 
+import com.webShopBack.response.WebResponse;
+
 import java.util.Set;
 
 /**
@@ -17,4 +19,13 @@ public interface PermissionService {
      * @return 
      */
     Set<String> findPermissionByUserName(String userName);
+
+    /**
+     * @description 添加权限
+     * @author zhou
+     * @created  2018/11/14 17:40    
+     * @param 
+     * @return 
+     */
+    WebResponse addPermission(String permissionName, String permissionDescription);
 }

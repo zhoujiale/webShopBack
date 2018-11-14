@@ -5,6 +5,7 @@ package com.webShopBack.dao;/**
  */
 
 import com.webShopBack.entity.User;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -34,6 +35,8 @@ public interface UserDao {
      * @param 
      * @return 
      */
+    @Insert(" INSERT INTO user(user_name, password, salt, state, add_time)\n" +
+            "                VALUES (#{userName},#{password},#{salt},#{state},#{createTime})")
     int addUser(User user);
 
     /**

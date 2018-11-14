@@ -15,6 +15,7 @@ import java.io.Serializable;
  **/
 public class Role implements Serializable{
 
+
     private int roleId;
 
     //角色名

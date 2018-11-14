@@ -13,6 +13,7 @@ import com.webShopBack.utils.IntUtil;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -21,6 +22,9 @@ import org.springframework.web.bind.annotation.*;
 import sun.net.www.http.HttpClient;
 
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import static com.webShopBack.utils.StringUtil.isEmpty;
@@ -55,19 +59,32 @@ public class UserController {
      */
     @RequestMapping(value = "/login")
     public WebResponse UserLogin(@RequestParam("userName") String userName,@RequestParam("password") String password,
-                                 @RequestParam(value = "rememberMe",defaultValue = "false") boolean rememberMe){
+                                 @RequestParam(value = "rememberMe",defaultValue = "false") boolean rememberMe,
+                                         HttpServletRequest request){
         if(isEmpty(userName)||isEmpty(password)){
             log.error("用户名或密码为空");
             return new WebResponse().error(401,null,"用户名或密码为空");
         }
+
+        //查询角色
+        Set<String> roleList = roleService.findRoleByUserName(userName);
+        //查询权限
+        Set<String> permissionList = permissionService.findPermissionByUserName(userName);
+
         Subject currentUser = SecurityUtils.getSubject();
+
         //判断用户是否登陆
 
         if(!currentUser.isAuthenticated()) {
             UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
             try {
                 //token.setRememberMe(rememberMe);
+                request.getSession().setAttribute("token",userName);
+                request.getSession().setAttribute("role",roleList);
+                request.getSession().setAttribute("permission",permissionList);
+
                 currentUser.login(token);
+
             } catch (UnknownAccountException uae) {
                 log.error("账号不存在");
                 return new WebResponse().error(402, null, "账号不存在");
@@ -82,7 +99,11 @@ public class UserController {
                 return new WebResponse().error(405, null, "未知错误");
             }
         }
-        return new WebResponse().ok(userName + "登陆成功");
+        HashMap<String,Object> userMap = new HashMap<>();
+        userMap.put("msg",userName + "登陆成功");
+        userMap.put("role",roleList);
+        userMap.put("permission",permissionList);
+        return new WebResponse().ok(userMap);
     }
 
     /**
@@ -93,6 +114,7 @@ public class UserController {
      * @return :webResponse
      */
     @RequestMapping(value = "/addUser",method = RequestMethod.POST)
+    @RequiresPermissions("addUser")
     public WebResponse addUser(String userName,String password,int roleId){
 
         if(isEmpty(userName)||isEmpty(password)){
@@ -115,10 +137,15 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/lockedUser",method = RequestMethod.POST)
-    public WebResponse lockedUser(String userName,int state){
+    public WebResponse lockedUser(String userName,int state,HttpServletRequest request){
         if(isEmpty(userName)){
             log.error("用户名为空");
             return new WebResponse().error(401,null,"用户名为空");
+        }
+        String token = (String) request.getSession().getAttribute("token");
+        if(token.equals(userName)){
+            log.error("不能操作本人");
+            return new WebResponse().error(402,null,"不能操作本人");
         }
         WebResponse webResponse = userService.lockedUser(userName,state);
         return webResponse;
@@ -142,10 +169,28 @@ public class UserController {
         return new WebResponse().ok(userName + "退出登录");
     }
 
-    @RequestMapping(value = "/selectPermission",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-    public WebResponse selectRole(String userName){
-    Set<String> permission = permissionService.findPermissionByUserName(userName);
-        return new WebResponse().ok(permission);
+
+    /**
+     * @description 添加角色
+     * @author zhou
+     * @created  2018/11/14 9:50    
+     * @param 
+     * @return 
+     */
+    @RequestMapping(value = "/addRole",method = RequestMethod.POST)
+    public WebResponse addRole(String roleName,String roleDescription,HttpServletRequest request){
+        if(isEmpty(roleName)){
+            log.error("角色名不能为空");
+            return new WebResponse().error(401,null,"角色名不能为空");
+        }
+        WebResponse webResponse = roleService.addRole(roleName,roleDescription);
+        return webResponse;
+    }
+
+    @RequestMapping(value = "/addPermission",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public WebResponse addPermission(String permissionName,String permissionDescription){
+        WebResponse webResponse = permissionService.addPermission(permissionName,permissionDescription);
+        return webResponse;
     }
 
 

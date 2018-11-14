@@ -1,5 +1,6 @@
 package com.webShopBack.dao;
 
+import com.webShopBack.entity.Role;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -23,4 +24,22 @@ public interface RoleDao {
      * @return 
      */
     List<String> findRoleByUserName(String userName);
+
+    /**
+     * @description 根据角色名查询角色
+     * @author zhou
+     * @created  2018/11/14 10:00    
+     * @param 
+     * @return 
+     */
+    Role findRoleByRoleName(String roleName);
+
+    /**
+     * @description 添加角色
+     * @author zhou
+     * @created  2018/11/14 16:15
+     * @param 
+     * @return 
+     */
+    int addRole(Role newRole);
 }

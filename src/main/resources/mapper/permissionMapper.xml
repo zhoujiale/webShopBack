@@ -3,11 +3,20 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.webShopBack.dao.PermissionDao">
+
     <resultMap id="permissionResultType" type="String">
         <result property="permissionName" column="permission_name"/>
         <result property="permissionDescription" column="permission_description"/>
         <result property="available" column="available"/>
     </resultMap>
+
+    <resultMap id="permissionMap" type="Permission">
+        <id property="permissionId" column="id"/>
+        <result property="permissionName" column="permission_name"/>
+        <result property="permissionDescription" column="permission_description"/>
+        <result property="available" column="available"/>
+    </resultMap>
+    <!--根据用户名查询权限-->
     <select id="findPermissionByUserName" resultType="String" resultMap="permissionResultType">
       SELECT permission_name FROM auth_role_permission arp
        LEFT JOIN user_permission u ON arp.permission_id = u.id
@@ -20,4 +29,16 @@
                     SELECT user_id FROM user WHERE user_name = #{userName}
                 ))
     </select>
+
+    <!--根据权限名查询权限-->
+    <select id="findByPermissionName" resultType="Permission" resultMap="permissionResultType">
+        SELECT id,permission_name,permission_description,available
+           FROM user_permission WHERE permission_name = #{permissionName}
+    </select>
+
+    <!--添加权限-->
+    <insert id="addPermission" parameterType="Permission" >
+        INSERT INTO user_permission (permission_name, permission_description,available)
+                VALUES (#{permissionName},#{permissionDescription},#{available})
+    </insert>
 </mapper>

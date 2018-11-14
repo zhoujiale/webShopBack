@@ -29,9 +29,9 @@ CREATE TABLE `auth_role_permission` (
   PRIMARY KEY (`id`),
   KEY `fk_role_id_idx` (`role_id`),
   KEY `fk_permission_id_idx` (`permission_id`),
-  CONSTRAINT `fk_permisson_role_id` FOREIGN KEY (`role_id`) REFERENCES `user_role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_permission_role_id` FOREIGN KEY (`role_id`) REFERENCES `user_role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_role_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `user_permission` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='角色权限关联表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色权限关联表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -59,7 +59,7 @@ CREATE TABLE `auth_user_role` (
   KEY `fk_role_id_idx` (`role_id`),
   CONSTRAINT `fk_role_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_role_id` FOREIGN KEY (`role_id`) REFERENCES `user_role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='用户角色关联表';
+) ENGINE=InnoDB DEFAULT CHARSET=uf8 COMMENT='用户角色关联表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

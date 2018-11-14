@@ -58,6 +58,11 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public WebResponse addUser(String userName, String password, int roleId) {
+        User users = userDao.findByUserName(userName);
+        if(userDao.findByUserName(userName) != null){
+            log.error("用户已存在");
+            return new WebResponse().error(403,null,"用户已存在");
+        }
         User user = new User();
         String salt = UUIDUtil.createUUID().toString();
         Date createTime = new Date();
@@ -81,7 +86,7 @@ public class UserServiceImpl implements UserService{
         }catch (Exception e){
             log.error("添加新用户失败");
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return new WebResponse().error(403,null,"添加新用户失败");
+            return new WebResponse().error(404,null,"添加新用户失败");
         }
         return new WebResponse().ok(userName + "添加成功");
     }
@@ -113,7 +118,7 @@ public class UserServiceImpl implements UserService{
         }catch (Exception e){
             log.error("禁用用户失败");
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return new WebResponse().error(401,null,"禁用用户失败");
+            return new WebResponse().error(403,null,"禁用用户失败");
         }
         return new WebResponse().ok(str + userName);
     }

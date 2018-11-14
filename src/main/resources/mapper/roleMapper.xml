@@ -3,11 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.webShopBack.dao.RoleDao">
+
     <resultMap id="roleResultType" type="String">
         <result property="roleName" column="role_name"/>
         <result property="roleDescription" column="role_description"/>
         <result property="available" column="available"/>
     </resultMap>
+
+    <resultMap id="roleMap" type="Role">
+        <id property="roleId" column="id"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleDescription" column="role_description"/>
+        <result property="available" column="available"/>
+    </resultMap>
+
+    <!--根据用户名查询角色-->
     <select id="findRoleByUserName" resultType="String" resultMap="roleResultType">
         SELECT role_name
          FROM auth_user_role  aur LEFT JOIN
@@ -17,4 +27,17 @@
             SELECT user_id FROM user WHERE user_name = #{userName}
         )
     </select>
+
+    <!--根据角色名查询角色-->
+    <select id="findRoleByRoleName" resultType="Role" resultMap="roleMap">
+        SELECT id,role_name,role_description,available
+          FROM user_role
+    </select>
+
+    <!--添加角色-->
+    <insert id="addRole" parameterType="Role" useGeneratedKeys="true">
+        INSERT INTO user_role(role_name, role_description,available)
+                VALUES (#{roleName},#{roleDescription},#{available})
+    </insert>
+
 </mapper>

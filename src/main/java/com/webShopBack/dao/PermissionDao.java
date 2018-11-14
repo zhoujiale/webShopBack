@@ -1,5 +1,6 @@
 package com.webShopBack.dao;
 
+import com.webShopBack.entity.Permission;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -22,4 +23,22 @@ public interface PermissionDao {
      * @return
      */
     List<String> findPermissionByUserName(String userName);
+
+    /**
+     * @description 查询权限
+     * @author zhou
+     * @created  2018/11/14 17:42    
+     * @param 
+     * @return 
+     */
+    Permission findByPermissionName(String permissionName);
+
+    /**
+     * @description 添加权限
+     * @author zhou
+     * @created  2018/11/14 18:00
+     * @param
+     * @return
+     */
+    int addPermission(Permission newPermission);
 }
