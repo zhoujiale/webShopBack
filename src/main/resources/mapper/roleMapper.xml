@@ -17,6 +17,12 @@
         <result property="available" column="available"/>
     </resultMap>
 
+    <resultMap id="rolePermission" type="RolePermission">
+        <id property="id" column="id"/>
+        <result property="roleId" column="role_id"/>
+        <result property="permissionId" column="permission_id"/>
+    </resultMap>
+
     <!--根据用户名查询角色-->
     <select id="findRoleByUserName" resultType="String" resultMap="roleResultType">
         SELECT role_name
@@ -39,5 +45,27 @@
         INSERT INTO user_role(role_name, role_description,available)
                 VALUES (#{roleName},#{roleDescription},#{available})
     </insert>
+
+    <!--返回所有的角色-->
+    <select id="getAllRole" resultMap="roleMap" resultType="Role">
+        SELECT * FROM user_role
+    </select>
+
+    <!--根据角色编号查询角色-->
+    <select id="findRoleByRoleId" resultMap="roleMap" resultType="Role">
+        SELECT * FROM user_role WHERE id = #{roleId} AND available = 1
+    </select>
+
+    <!--角色添加权限-->
+    <insert id="addPermission" parameterType="rolePermission">
+        INSERT INTO auth_role_permission(role_id, permission_id)
+                VALUES (#{roleId},#{permissionId})
+    </insert>
+
+    <!--禁用/启用角色-->
+    <update id="lockedRole" parameterType="Role">
+        UPDATE user_role SET available = #{available}
+          WHERE id = #{roleId}
+    </update>
 
 </mapper>

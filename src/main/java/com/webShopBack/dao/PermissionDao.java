@@ -41,4 +41,13 @@ public interface PermissionDao {
      * @return
      */
     int addPermission(Permission newPermission);
+
+    /**
+     * @description 根据权限编号查权限
+     * @author zhou
+     * @created  2018/11/15 9:52
+     * @param
+     * @return
+     */
+    Permission findPermissionById(int permissionId);
 }

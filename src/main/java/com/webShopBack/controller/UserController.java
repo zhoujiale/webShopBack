@@ -79,6 +79,7 @@ public class UserController {
             UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
             try {
                 //token.setRememberMe(rememberMe);
+                //存入参数
                 request.getSession().setAttribute("token",userName);
                 request.getSession().setAttribute("role",roleList);
                 request.getSession().setAttribute("permission",permissionList);
@@ -137,6 +138,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/lockedUser",method = RequestMethod.POST)
+    @RequiresPermissions("lockedUser")
     public WebResponse lockedUser(String userName,int state,HttpServletRequest request){
         if(isEmpty(userName)){
             log.error("用户名为空");
@@ -178,6 +180,7 @@ public class UserController {
      * @return 
      */
     @RequestMapping(value = "/addRole",method = RequestMethod.POST)
+    @RequiresPermissions("addRole")
     public WebResponse addRole(String roleName,String roleDescription,HttpServletRequest request){
         if(isEmpty(roleName)){
             log.error("角色名不能为空");

@@ -15,10 +15,19 @@ import java.io.Serializable;
  **/
 public class RolePermission implements Serializable {
 
+    private int id;
     //角色id
     private int roleId;
     //权限id
     private int permissionId;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getRoleId() {
         return roleId;
@@ -36,10 +45,17 @@ public class RolePermission implements Serializable {
         this.permissionId = permissionId;
     }
 
+    public RolePermission(int id, int roleId, int permissionId) {
+        this.id = id;
+        this.roleId = roleId;
+        this.permissionId = permissionId;
+    }
+
     @Override
     public String toString() {
         return "RolePermission{" +
-                "roleId=" + roleId +
+                "id=" + id +
+                ", roleId=" + roleId +
                 ", permissionId=" + permissionId +
                 '}';
     }

@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService{
     @Transactional
     public WebResponse addUser(String userName, String password, int roleId) {
         User users = userDao.findByUserName(userName);
-        if(userDao.findByUserName(userName) != null){
+        if(users != null){
             log.error("用户已存在");
             return new WebResponse().error(403,null,"用户已存在");
         }
@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService{
     }
 
     /**
-     * @description 禁用用户
+     * @description 禁用/启用用户
      * @author zhou
      * @created  2018/11/13 16:31
      * @param

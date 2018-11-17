@@ -4,12 +4,14 @@ package com.webShopBack.service.impl;/**
  * @Description:
  */
 
+import com.webShopBack.dao.PermissionDao;
 import com.webShopBack.dao.RoleDao;
+import com.webShopBack.entity.Permission;
 import com.webShopBack.entity.Role;
 import com.webShopBack.response.WebResponse;
 import com.webShopBack.service.RoleService;
-import org.apache.ibatis.javassist.bytecode.Descriptor;
 import org.apache.log4j.Logger;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +33,8 @@ public class RoleServiceImpl implements RoleService{
 
    @Autowired
    private RoleDao roleDao;
+   @Autowired
+   private PermissionDao permissionDao;
 
     /**
      * @description 根据用户名查询角色
@@ -78,5 +82,86 @@ public class RoleServiceImpl implements RoleService{
             return new WebResponse().error(403,null,"添加角色失败");
         }
         return new WebResponse().ok("添加角色" + roleName + "成功");
+    }
+
+    /**
+     * @description 返回所有的角色
+     * @author zhou
+     * @created  2018/11/14 18:21
+     * @param
+     * @return
+     */
+    @Override
+    public WebResponse getAllRole() {
+        List<HashMap<String,Object>> roleList = roleDao.getAllRole();
+        return new WebResponse().ok(roleList);
+    }
+
+    /**
+     * @description 为角色添加权限
+     * @author zhou
+     * @created  2018/11/15 9:36
+     * @param
+     * @param permissionId 权限id
+     * @return
+     */
+    @Override
+    @RequiresPermissions("addPermissionByRole")
+    public WebResponse addPermissionByRole(int roleId, int permissionId) {
+        Role role = roleDao.findRoleByRoleId(roleId);
+        if(role == null){
+            log.error("角色不存在或禁用");
+            return new WebResponse().error(403,null,"角色不存在或禁用");
+        }
+        Permission permission = permissionDao.findPermissionById(permissionId);
+        if(permission == null){
+            log.error("权限不存在或禁用");
+            return new WebResponse().error(404,null,"权限不存在或禁用");
+        }
+        try{
+            //添加权限
+            int addRolePermission = roleDao.addPermission(roleId,permissionId);
+            if(addRolePermission == 0){
+                throw new RuntimeException();
+            }
+
+        }catch (Exception e){
+            log.error("角色添加权限失败");
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return new WebResponse().error(405,null,"角色添加权限失败");
+        }
+        return new WebResponse().ok("角色" + role.getRoleName() + "添加权限" + permission.getPermissionName() + "成功");
+    }
+
+    /**
+     * @description 禁用/启用角色
+     * @author zhou
+     * @created  2018/11/16 11:17
+     * @param roleId 角色Id
+     * @param available
+     * @return
+     */
+    @Override
+    public WebResponse lockedRole(int roleId, boolean available) {
+
+        Role role = roleDao.findRoleByRoleId(roleId);
+        String str ="";
+        if(role.getAvailable() == true){
+            str = "启用";
+        }else {
+            str = "禁用";
+        }
+        try{
+            int updateRole = roleDao.lockedRole(roleId,available);
+            if(updateRole == 0){
+                throw new RuntimeException();
+            }
+
+        }catch (Exception e){
+            log.error("禁用或启用失败");
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return new WebResponse().error(403,null,"禁用或启用失败");
+        }
+        return new WebResponse().ok(role.getRoleName() + str + "成功");
     }
 }

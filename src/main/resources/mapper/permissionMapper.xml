@@ -16,6 +16,7 @@
         <result property="permissionDescription" column="permission_description"/>
         <result property="available" column="available"/>
     </resultMap>
+
     <!--根据用户名查询权限-->
     <select id="findPermissionByUserName" resultType="String" resultMap="permissionResultType">
       SELECT permission_name FROM auth_role_permission arp
@@ -41,4 +42,9 @@
         INSERT INTO user_permission (permission_name, permission_description,available)
                 VALUES (#{permissionName},#{permissionDescription},#{available})
     </insert>
+
+    <!--根据权限编号查权限-->
+    <select id="findPermissionById" resultType="Permission" resultMap="permissionMap">
+        SELECT * FROM user_permission WHERE id = #{permissionId} AND available = 1
+    </select>
 </mapper>

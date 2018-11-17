@@ -28,4 +28,33 @@ public interface RoleService {
      * @return 
      */
     WebResponse addRole(String roleName, String roleDescription);
+
+    /**
+     * @description 返回所有的角色
+     * @author zhou
+     * @created  2018/11/14 18:21    
+     * @param 
+     * @return 
+     */
+    WebResponse getAllRole();
+
+    /**
+     * @description 为角色添加权限
+     * @author zhou
+     * @created  2018/11/15 9:40
+     * @param
+     * @param permissionId
+     * @return
+     */
+    WebResponse addPermissionByRole(int roleId, int permissionId);
+
+    /**
+     * @description 禁用/启用角色
+     * @author zhou
+     * @created  2018/11/16 11:45
+     * @param
+     * @param available
+     * @return
+     */
+    WebResponse lockedRole(int roleId, boolean available);
 }
