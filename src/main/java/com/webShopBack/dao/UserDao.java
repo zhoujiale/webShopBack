@@ -9,6 +9,9 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
+import java.util.List;
+
 /**
  *@ClassName UserDao
  *@Description TODO
@@ -56,4 +59,13 @@ public interface UserDao {
      * @return
      */
     int lockedUser(@Param("userName") String userName,@Param("state") int state);
+
+    /**
+     * @description 获得所有的用户
+     * @author zhou
+     * @created  2018/11/17 16:25
+     * @param 
+     * @return 
+     */
+    List<HashMap<String,Object>> getAllUser();
 }

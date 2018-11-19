@@ -190,6 +190,18 @@ public class UserController {
         return webResponse;
     }
 
+    /**
+     * @description
+     * @author zhou
+     * @created  2018/11/17 16:06    
+     * @param 
+     * @return 
+     */
+    @RequestMapping(value = "/getAllUser",method = RequestMethod.POST)
+    public WebResponse getAllUser(int pageSize,int pageNum){
+        WebResponse webResponse = userService.getAllUser(pageSize,pageNum);
+        return webResponse;
+    }
     @RequestMapping(value = "/addPermission",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public WebResponse addPermission(String permissionName,String permissionDescription){
         WebResponse webResponse = permissionService.addPermission(permissionName,permissionDescription);

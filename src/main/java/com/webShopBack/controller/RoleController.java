@@ -8,6 +8,7 @@ import com.webShopBack.response.WebResponse;
 import com.webShopBack.service.RoleService;
 import com.webShopBack.utils.IntUtil;
 import org.apache.log4j.Logger;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,6 +53,7 @@ public class RoleController {
      * @return
      */
     @RequestMapping(value = "/addPermissionByRole",method = RequestMethod.POST)
+    @RequiresPermissions("addPermissionByRole")
     public WebResponse addPermissionByRole(int roleId,int permissionId){
         if(IntUtil.isEmpty(roleId)){
             log.error("角色编号不正确");
@@ -73,6 +75,7 @@ public class RoleController {
      * @return
      */
     @RequestMapping(value = "/lockedRole",method = RequestMethod.POST)
+    @RequiresPermissions("lockedRole")
     public WebResponse lockedRole(int roleId,@RequestParam(value = "available",defaultValue = "false") boolean available){
         if(IntUtil.isEmpty(roleId)){
             log.error("角色id为空");

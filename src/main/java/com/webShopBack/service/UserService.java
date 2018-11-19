@@ -38,4 +38,15 @@ public interface UserService {
      * @return
      */
     WebResponse lockedUser(String userName, int state);
+
+    /**
+     * @description 返回所有的用户
+     * @author zhou
+     * @created  2018/11/17 16:09
+     * @param
+     * @param pageSize 每页返回数量
+     * @param pageNum 页号
+     * @return
+     */
+    WebResponse getAllUser(int pageSize, int pageNum);
 }

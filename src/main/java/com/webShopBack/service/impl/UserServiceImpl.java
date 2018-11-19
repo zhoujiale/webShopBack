@@ -4,6 +4,7 @@ package com.webShopBack.service.impl;/**
  * @Description:
  */
 
+import com.github.pagehelper.PageHelper;
 import com.webShopBack.entity.User;
 import com.webShopBack.dao.UserDao;
 import com.webShopBack.response.WebResponse;
@@ -19,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
@@ -121,5 +124,19 @@ public class UserServiceImpl implements UserService{
             return new WebResponse().error(403,null,"禁用用户失败");
         }
         return new WebResponse().ok(str + userName);
+    }
+
+    /**
+     * @description 获得所有的用户
+     * @author zhou
+     * @created  2018/11/17 16:20
+     * @param
+     * @return
+     */
+    @Override
+    public WebResponse getAllUser(int pageSize, int pageNum) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<HashMap<String,Object>> userList = userDao.getAllUser();
+        return null;
     }
 }
