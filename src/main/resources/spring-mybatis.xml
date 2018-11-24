@@ -54,23 +54,6 @@
         <property name="typeAliasesPackage" value="com.webShopBack.entity"/>
         <!--扫描sql配置文件:mapper需要的xml文件-->
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
-        <!--拦截器插件-->
-        <property name="plugins">
-            <array>
-                <bean class="com.github.pagehelper.PageInterceptor">
-                    <property name="properties">
-                        <value>
-                            helperDialect=mysql
-                            reasonable=true
-                            pageSizeZero=true
-                            supportMethodsArguments=true
-                            params=count=countSql
-                            autoRuntimeDialect=true
-                        </value>
-                    </property>
-                </bean>
-            </array>
-        </property>
     </bean>
     <!--配置扫描Dao包,动态实现Dao接口-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

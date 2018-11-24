@@ -191,14 +191,15 @@ public class UserController {
     }
 
     /**
-     * @description
+     * @description 获得所有的用户
      * @author zhou
      * @created  2018/11/17 16:06    
      * @param 
      * @return 
      */
     @RequestMapping(value = "/getAllUser",method = RequestMethod.POST)
-    public WebResponse getAllUser(int pageSize,int pageNum){
+    public WebResponse getAllUser(@RequestParam(value = "pageSize",defaultValue = "10") int pageSize,
+                                  @RequestParam(value = "pageNum",defaultValue = "1") int pageNum){
         WebResponse webResponse = userService.getAllUser(pageSize,pageNum);
         return webResponse;
     }

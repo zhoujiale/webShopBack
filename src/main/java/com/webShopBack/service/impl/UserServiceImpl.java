@@ -5,11 +5,13 @@ package com.webShopBack.service.impl;/**
  */
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.webShopBack.entity.User;
 import com.webShopBack.dao.UserDao;
 import com.webShopBack.response.WebResponse;
 import com.webShopBack.service.UserService;
 import com.webShopBack.shrio.PassWordHelper;
+import com.webShopBack.utils.DateUtil;
 import com.webShopBack.utils.UUIDUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +45,8 @@ public class UserServiceImpl implements UserService{
     private UserDao userDao;
     @Autowired
     private PassWordHelper passWordHelper;
+    @Autowired
+    private DateUtil dateUtil;
 
 
 
@@ -137,6 +142,11 @@ public class UserServiceImpl implements UserService{
     public WebResponse getAllUser(int pageSize, int pageNum) {
         PageHelper.startPage(pageNum,pageSize);
         List<HashMap<String,Object>> userList = userDao.getAllUser();
-        return null;
+        for(HashMap<String,Object> users:userList){
+            users.put("createTime",dateUtil.Timestamp2date((Timestamp) users.get("createTime")));
+        }
+        PageInfo<HashMap<String,Object>> pageList = new PageInfo<>(userList);
+
+        return new WebResponse().ok(pageList);
     }
 }
