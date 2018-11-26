@@ -37,7 +37,7 @@
     <!--根据角色名查询角色-->
     <select id="findRoleByRoleName" resultType="Role" resultMap="roleMap">
         SELECT id,role_name,role_description,available
-          FROM user_role
+          FROM user_role WHERE role_name = #{roleName}
     </select>
 
     <!--添加角色-->

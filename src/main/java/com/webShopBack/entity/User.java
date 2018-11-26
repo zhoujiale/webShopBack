@@ -1,12 +1,8 @@
 package com.webShopBack.entity;/**
- * @Auther: bee
+ * @Auther: zhou
  * @Date: 2018/10/17 14:49
  * @Description:
  */
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,7 +10,7 @@ import java.util.Date;
 /**
  *@ClassName User
  *@Description 用户实体类
- *@Author bee
+ *@Author zhou
  *Date 2018/10/17 14:49
  *@Version 1.0
  **/

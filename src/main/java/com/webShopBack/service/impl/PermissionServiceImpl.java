@@ -31,7 +31,7 @@ public class PermissionServiceImpl implements PermissionService {
      * @description 根据用户查询权限
      * @author zhou
      * @created  2018/10/23 14:47    
-     * @param 
+     * @param  userName 用户名
      * @return 
      */
     @Override
@@ -45,7 +45,8 @@ public class PermissionServiceImpl implements PermissionService {
      * @description 添加权限
      * @author zhou
      * @created  2018/11/14 17:41
-     * @param
+     * @param permissionName 权限名
+     * @param permissionDescription 权限描述
      * @return
      */
     @Override

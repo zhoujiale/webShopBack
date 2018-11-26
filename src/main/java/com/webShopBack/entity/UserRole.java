@@ -1,5 +1,5 @@
 package com.webShopBack.entity;/**
- * @Auther: bee
+ * @Auther: zhou
  * @Date: 2018/10/17 15:41
  * @Description:
  */
@@ -8,8 +8,8 @@ import java.io.Serializable;
 
 /**
  *@ClassName UserRole
- *@Description TODO
- *@Author bee
+ *@Description 角色实体类
+ *@Author zhou
  *Date 2018/10/17 15:41
  *@Version 1.0
  **/

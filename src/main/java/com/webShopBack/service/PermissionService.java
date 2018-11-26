@@ -5,9 +5,9 @@ import com.webShopBack.response.WebResponse;
 import java.util.Set;
 
 /**
- * @Auther: bee
+ * @Auther: zhou
  * @Date: 2018/10/23 14:44
- * @Description:
+ * @Description: 权限接口
  */
 public interface PermissionService {
     

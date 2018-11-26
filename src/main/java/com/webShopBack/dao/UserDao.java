@@ -1,5 +1,5 @@
 package com.webShopBack.dao;/**
- * @Auther: bee
+ * @Auther: zhou
  * @Date: 2018/10/17 14:56
  * @Description:
  */
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  *@ClassName UserDao
  *@Description TODO
- *@Author bee
+ *@Author zhou
  *Date 2018/10/17 14:56
  *@Version 1.0
  **/

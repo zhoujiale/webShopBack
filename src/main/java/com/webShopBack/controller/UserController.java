@@ -1,5 +1,5 @@
 package com.webShopBack.controller;/**
- * @Auther: bee
+ * @Auther: zhou
  * @Date: 2018/10/17 14:55
  * @Description:
  */
@@ -32,8 +32,8 @@ import static com.webShopBack.utils.StringUtil.isEmpty;
 
 /**
  *@ClassName UserController
- *@Description TODO
- *@Author bee
+ *@Description 用户Web层
+ *@Author zhou
  *Date 2018/10/17 14:55
  *@Version 1.0
  **/
@@ -54,7 +54,9 @@ public class UserController {
      * @description 登陆
      * @author zhou
      * @created  2018/11/9 16:33
-     * @param
+     * @param userName 用户名
+     * @param password 密码
+     * @param rememberMe 记住账号
      * @return
      */
     @RequestMapping(value = "/login")
@@ -65,16 +67,13 @@ public class UserController {
             log.error("用户名或密码为空");
             return new WebResponse().error(401,null,"用户名或密码为空");
         }
-
         //查询角色
         Set<String> roleList = roleService.findRoleByUserName(userName);
         //查询权限
         Set<String> permissionList = permissionService.findPermissionByUserName(userName);
-
+        //获得主体
         Subject currentUser = SecurityUtils.getSubject();
-
         //判断用户是否登陆
-
         if(!currentUser.isAuthenticated()) {
             UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
             try {
@@ -83,9 +82,7 @@ public class UserController {
                 request.getSession().setAttribute("token",userName);
                 request.getSession().setAttribute("role",roleList);
                 request.getSession().setAttribute("permission",permissionList);
-
                 currentUser.login(token);
-
             } catch (UnknownAccountException uae) {
                 log.error("账号不存在");
                 return new WebResponse().error(402, null, "账号不存在");
@@ -111,7 +108,9 @@ public class UserController {
      * @description 添加用户
      * @author zhou
      * @created  2018/10/19 11:11
-     * @param  :userName,password
+     * @param userName 用户名
+     * @param password 密码
+     * @param roleId 角色id
      * @return :webResponse
      */
     @RequestMapping(value = "/addUser",method = RequestMethod.POST)
@@ -134,7 +133,8 @@ public class UserController {
      * @description 禁用/解禁用户
      * @author zhou
      * @created  2018/11/13 16:40
-     * @param
+     * @param userName 用户名
+     * @param state 状态
      * @return
      */
     @RequestMapping(value = "/lockedUser",method = RequestMethod.POST)
@@ -157,7 +157,7 @@ public class UserController {
      * @description 退出登录
      * @author zhou
      * @created  2018/11/13 11:23
-     * @param
+     * @param userName 用户名
      * @return
      */
     @RequestMapping(value = "/loginOut",method = RequestMethod.POST)
@@ -176,12 +176,13 @@ public class UserController {
      * @description 添加角色
      * @author zhou
      * @created  2018/11/14 9:50    
-     * @param 
+     * @param roleName 角色名
+     * @param roleDescription 角色描述
      * @return 
      */
     @RequestMapping(value = "/addRole",method = RequestMethod.POST)
     @RequiresPermissions("addRole")
-    public WebResponse addRole(String roleName,String roleDescription,HttpServletRequest request){
+    public WebResponse addRole(String roleName,String roleDescription){
         if(isEmpty(roleName)){
             log.error("角色名不能为空");
             return new WebResponse().error(401,null,"角色名不能为空");
@@ -194,7 +195,8 @@ public class UserController {
      * @description 获得所有的用户
      * @author zhou
      * @created  2018/11/17 16:06    
-     * @param 
+     * @param pageNum 页号
+     * @param pageSize 每页记录数
      * @return 
      */
     @RequestMapping(value = "/getAllUser",method = RequestMethod.POST)
@@ -203,6 +205,14 @@ public class UserController {
         WebResponse webResponse = userService.getAllUser(pageSize,pageNum);
         return webResponse;
     }
+    /**
+     * @description 添加权限
+     * @author zhou
+     * @created  2018/11/26 17:26
+     * @param permissionName 权限名称
+     * @param permissionDescription 权限描述
+     * @return
+     */
     @RequestMapping(value = "/addPermission",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public WebResponse addPermission(String permissionName,String permissionDescription){
         WebResponse webResponse = permissionService.addPermission(permissionName,permissionDescription);

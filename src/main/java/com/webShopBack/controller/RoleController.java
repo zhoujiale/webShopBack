@@ -1,5 +1,5 @@
 package com.webShopBack.controller;/**
- * @Auther: bee
+ * @Auther: zhou
  * @Date: 2018/11/14 18:14
  * @Description:
  */
@@ -49,7 +49,8 @@ public class RoleController {
      * @description 为角色添加权限
      * @author zhou
      * @created  2018/11/15 9:32
-     * @param
+     * @param roleId  角色id
+     * @param permissionId 权限id
      * @return
      */
     @RequestMapping(value = "/addPermissionByRole",method = RequestMethod.POST)
@@ -71,12 +72,14 @@ public class RoleController {
      * @description 禁用/启用角色
      * @author zhou
      * @created  2018/11/16 11:14
-     * @param
+     * @param roleId 角色id
+     * @param available 是否可用
      * @return
      */
     @RequestMapping(value = "/lockedRole",method = RequestMethod.POST)
     @RequiresPermissions("lockedRole")
-    public WebResponse lockedRole(int roleId,@RequestParam(value = "available",defaultValue = "false") boolean available){
+    public WebResponse lockedRole(int roleId,
+                                  @RequestParam(value = "available",defaultValue = "false") boolean available){
         if(IntUtil.isEmpty(roleId)){
             log.error("角色id为空");
         }

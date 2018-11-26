@@ -1,5 +1,5 @@
 package com.webShopBack.service.impl;/**
- * @Auther: bee
+ * @Auther: zhou
  * @Date: 2018/10/17 15:10
  * @Description:
  */
@@ -31,7 +31,7 @@ import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 /**
  *@ClassName UserServiceImpl
  *@Description 用户实现层
- *@Author bee
+ *@Author zhou
  *Date 2018/10/17 15:10
  *@Version 1.0
  **/
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService{
      * @description 根据用户名查询用户信息
      * @author zhou
      * @created  2018/10/19 11:25
-     * @param userName
+     * @param userName 用户名
      * @return User
      */
     @Override
@@ -62,7 +62,15 @@ public class UserServiceImpl implements UserService{
         return userDao.findByUserName(userName);
     }
 
-
+    /**
+     * @description 添加用户
+     * @author zhou
+     * @created  2018/11/26 17:56
+     * @param userName 用户名
+     * @param password 密码
+     * @param roleId 角色id
+     * @return
+     */
     @Override
     @Transactional
     public WebResponse addUser(String userName, String password, int roleId) {
@@ -90,7 +98,6 @@ public class UserServiceImpl implements UserService{
             if(roleCount == 0){
                 throw new RuntimeException();
             }
-
         }catch (Exception e){
             log.error("添加新用户失败");
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
@@ -103,7 +110,8 @@ public class UserServiceImpl implements UserService{
      * @description 禁用/启用用户
      * @author zhou
      * @created  2018/11/13 16:31
-     * @param
+     * @param userName 用户名
+     * @param state 状态
      * @return
      */
     @Override
@@ -135,7 +143,8 @@ public class UserServiceImpl implements UserService{
      * @description 获得所有的用户
      * @author zhou
      * @created  2018/11/17 16:20
-     * @param
+     * @param pageNum 页号
+     * @param pageSize 每页返回记录数
      * @return
      */
     @Override
@@ -146,7 +155,6 @@ public class UserServiceImpl implements UserService{
             users.put("createTime",dateUtil.Timestamp2date((Timestamp) users.get("createTime")));
         }
         PageInfo<HashMap<String,Object>> pageList = new PageInfo<>(userList);
-
         return new WebResponse().ok(pageList);
     }
 }

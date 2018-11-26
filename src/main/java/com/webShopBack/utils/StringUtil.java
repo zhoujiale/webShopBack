@@ -1,5 +1,5 @@
 package com.webShopBack.utils;/**
- * @Auther: bee
+ * @Auther: zhou
  * @Date: 2018/10/18 16:55
  * @Description:
  */
@@ -9,7 +9,7 @@ import com.sun.xml.internal.ws.runtime.config.TubelineFeatureReader;
 /**
  *@ClassName StringUtil
  *@Description 字符串工具类
- *@Author bee
+ *@Author zhou
  *Date 2018/10/18 16:55
  *@Version 1.0
  **/

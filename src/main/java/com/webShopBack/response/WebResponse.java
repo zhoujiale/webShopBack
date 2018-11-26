@@ -1,5 +1,5 @@
 package com.webShopBack.response;/**
- * @Auther: bee
+ * @Auther: zhou
  * @Date: 2018/10/18 10:54
  * @Description:
  */
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 /**
  *@ClassName Response
- *@Description TODO
- *@Author bee
+ *@Description 统一响应格式
+ *@Author zhou
  *Date 2018/10/18 10:54
  *@Version 1.0
  **/

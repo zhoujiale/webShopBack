@@ -6,7 +6,7 @@ import com.webShopBack.response.WebResponse;
 /**
  * @Auther: zhou
  * @Date: 2018/10/17 15:08
- * @Description:
+ * @Description: 用户接口
  */
 public interface UserService {
 
