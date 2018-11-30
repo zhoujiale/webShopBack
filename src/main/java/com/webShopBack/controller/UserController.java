@@ -4,7 +4,7 @@ package com.webShopBack.controller;/**
  * @Description:
  */
 
-import com.webShopBack.entity.User;
+
 import com.webShopBack.response.WebResponse;
 import com.webShopBack.service.PermissionService;
 import com.webShopBack.service.RoleService;
@@ -14,17 +14,12 @@ import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
-import org.aspectj.lang.annotation.AfterReturning;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sun.net.www.http.HttpClient;
-
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 
 import static com.webShopBack.utils.StringUtil.isEmpty;

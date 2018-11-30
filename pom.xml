@@ -150,7 +150,6 @@
       <artifactId>commons-logging</artifactId>
       <version>1.2</version>
     </dependency>
-
     <!-- JSON: jackson -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
@@ -199,8 +198,6 @@
       <artifactId>commons-httpclient</artifactId>
       <version>3.1</version>
     </dependency>
-
-
   </dependencies>
 
   <build>

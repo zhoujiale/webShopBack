@@ -15,7 +15,7 @@ public interface RoleService {
      * @description 根据用户名查询角色
      * @author zhou
      * @created  2018/10/23 14:26    
-     * @param 
+     * @param userName 用户名
      * @return 
      */
     Set<String> findRoleByUserName(String userName);
