@@ -6,6 +6,7 @@ import com.webShopBack.service.ProductionService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -24,6 +25,16 @@ public class ProductionController {
     @Autowired
     private ProductionService productionService;
 
-
-
+    /**
+     * @description 返回所有的商品
+     * @author zhou
+     * @created  2018/12/4 18:52
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/findall",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public WebResponse findAllProduction(){
+        WebResponse webResponse = productionService.findAllProduction();
+        return null;
+    }
 }

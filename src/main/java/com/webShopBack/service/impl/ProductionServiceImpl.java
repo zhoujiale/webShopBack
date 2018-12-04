@@ -5,6 +5,7 @@ package com.webShopBack.service.impl;/**
  */
 
 import com.webShopBack.dao.ProductionDao;
+import com.webShopBack.response.WebResponse;
 import com.webShopBack.service.ProductionService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,4 +25,16 @@ public class ProductionServiceImpl implements ProductionService{
 
     @Autowired
     private ProductionDao productionDao;
+
+    /**
+     * @description 返回所有的商品
+     * @author zhou
+     * @created  2018/12/4 18:55    
+     * @param 
+     * @return 
+     */
+    @Override
+    public WebResponse findAllProduction() {
+        return null;
+    }
 }
