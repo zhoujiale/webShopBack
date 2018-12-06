@@ -56,11 +56,11 @@ public class RoleController {
     @RequestMapping(value = "/addPermissionByRole",method = RequestMethod.POST)
     @RequiresPermissions("addPermissionByRole")
     public WebResponse addPermissionByRole(int roleId,int permissionId){
-        if(IntUtil.isEmpty(roleId)){
+        if(IntUtil.isIntEmpty(roleId)){
             log.error("角色编号不正确");
             return new WebResponse().error(401,null,"角色编号不正确");
         }
-        if(IntUtil.isEmpty(permissionId)){
+        if(IntUtil.isIntEmpty(permissionId)){
             log.error("权限编号不正确");
             return new WebResponse().error(402,null,"权限编号不正确");
         }
@@ -80,7 +80,7 @@ public class RoleController {
     @RequiresPermissions("lockedRole")
     public WebResponse lockedRole(int roleId,
                                   @RequestParam(value = "available",defaultValue = "false") boolean available){
-        if(IntUtil.isEmpty(roleId)){
+        if(IntUtil.isIntEmpty(roleId)){
             log.error("角色id为空");
         }
         WebResponse webResponse = roleService.lockedRole(roleId,available);

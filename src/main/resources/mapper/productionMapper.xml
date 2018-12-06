@@ -10,11 +10,26 @@
        <result property="productionName" column="production_name"/>
        <result property="title" column="title"/>
        <result property="mainImgUrl" column="main_imgurl"/>
-       <result property="oldPrice" column="oldPrice"/>
+       <result property="oldPrice" column="old_price"/>
        <result property="newPrice" column="new_price"/>
        <result property="stack" column="stack"/>
        <result property="status" column="status"/>
        <result property="createTime" column="create_time"/>
        <result property="updateTime" column="update_time"/>
    </resultMap>
+
+    <!--返回所有的商品-->
+    <select id="findAllProduction" resultType="Production">
+       SELECT production_id,classify,production_name,title,main_imgurl,
+           old_price,new_price,stack,status,create_time,update_time
+        ORDER BY update_time DESC
+    </select>
+
+    <!--添加商品-->
+    <insert id="addProduction" parameterType="Production">
+        INSERT INTO production(classify,production_name,title,main_imgurl,old_price,new_price,
+        stack,status,create_time,update_time)
+                VALUES (#{classify},#{productionName},#{title},#{mainImgUrl},
+                #{oldPrice},#{newPrice},#{stack},#{status},#{createTime},#{updateTime})
+    </insert>
 </mapper>

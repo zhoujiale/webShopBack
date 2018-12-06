@@ -1,5 +1,6 @@
 package com.webShopBack.service;
 
+import com.webShopBack.entity.Production;
 import com.webShopBack.response.WebResponse;
 
 /**
@@ -17,4 +18,14 @@ public interface ProductionService {
      * @return
      */
     WebResponse findAllProduction();
+
+    /**
+     * @description 添加产品
+     * @author zhou
+     * @created  2018/12/5 17:05    
+     * @param
+     * @param production
+     * @return
+     */
+    WebResponse addProduction(Production production);
 }

@@ -116,7 +116,7 @@ public class UserController {
             log.error("用户名或密码为空");
             return new WebResponse().error(401,null,"用户名或密码为空");
         }
-        if(IntUtil.isEmpty(roleId)){
+        if(IntUtil.isIntEmpty(roleId)){
             log.error("角色id为空");
             return new WebResponse().error(402,null,"角色id为空");
         }

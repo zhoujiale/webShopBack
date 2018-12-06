@@ -13,7 +13,7 @@ package com.webShopBack.utils;/**
  **/
 public class IntUtil {
 
-    public static boolean isEmpty(Integer inte){
+    public static boolean isIntEmpty(Integer inte){
         if(inte == 0 || inte == null){
            return true;
         }

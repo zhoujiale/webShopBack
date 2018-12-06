@@ -5,6 +5,7 @@ package com.webShopBack.utils;/**
  */
 
 import com.sun.xml.internal.ws.runtime.config.TubelineFeatureReader;
+import org.springframework.stereotype.Component;
 
 /**
  *@ClassName StringUtil
