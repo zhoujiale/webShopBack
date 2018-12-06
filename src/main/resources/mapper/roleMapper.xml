@@ -41,7 +41,7 @@
     </select>
 
     <!--添加角色-->
-    <insert id="addRole" parameterType="Role" useGeneratedKeys="true">
+    <insert id="addRole" parameterType="Role" useGeneratedKeys="true" keyProperty="roleId">
         INSERT INTO user_role(role_name, role_description,available)
                 VALUES (#{roleName},#{roleDescription},#{available})
     </insert>

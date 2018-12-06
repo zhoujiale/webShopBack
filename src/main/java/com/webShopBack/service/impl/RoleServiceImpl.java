@@ -81,7 +81,7 @@ public class RoleServiceImpl implements RoleService {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new WebResponse().error(403, null, "添加角色失败");
         }
-        return new WebResponse().ok("添加角色" + roleName + "成功");
+        return new WebResponse().ok(newRole);
     }
 
     /**

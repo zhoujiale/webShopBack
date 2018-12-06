@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService{
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new WebResponse().error(404,null,"添加新用户失败");
         }
-        return new WebResponse().ok(userName + "添加成功");
+        return new WebResponse().ok(newUser);
     }
 
     /**

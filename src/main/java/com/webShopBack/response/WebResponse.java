@@ -26,7 +26,7 @@ public class WebResponse {
     public WebResponse ok(Object data){
         this.code = 200;
         this.data = data;
-        this.msg = "请求成功";
+        this.msg = "success";
         return this;
     }
 

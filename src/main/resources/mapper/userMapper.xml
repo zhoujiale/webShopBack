@@ -35,7 +35,7 @@
                 VALUES (#{userName},#{password},#{salt},#{state},#{createTime})
     </insert>
     <!--对用户添加角色-->
-    <insert id="addRole" parameterType="UserRole" flushCache="true"
+    <insert id="addRole" parameterType="UserRole" keyProperty="userId"
             useGeneratedKeys="true">
         INSERT INTO auth_user_role(user_id, role_id)
                 VALUES(

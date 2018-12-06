@@ -38,7 +38,7 @@
     </select>
 
     <!--添加权限-->
-    <insert id="addPermission" parameterType="Permission" >
+    <insert id="addPermission" parameterType="Permission" useGeneratedKeys="true" keyProperty="permissionId">
         INSERT INTO user_permission (permission_name, permission_description,available)
                 VALUES (#{permissionName},#{permissionDescription},#{available})
     </insert>

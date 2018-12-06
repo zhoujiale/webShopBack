@@ -26,7 +26,7 @@
     </select>
 
     <!--添加商品-->
-    <insert id="addProduction" parameterType="Production">
+    <insert id="addProduction" parameterType="Production" useGeneratedKeys="true" keyProperty="productionId">
         INSERT INTO production(classify,production_name,title,main_imgurl,old_price,new_price,
         stack,status,create_time,update_time)
                 VALUES (#{classify},#{productionName},#{title},#{mainImgUrl},

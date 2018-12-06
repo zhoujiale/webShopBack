@@ -6,6 +6,7 @@ import com.webShopBack.response.WebResponse;
 import com.webShopBack.service.ProductionService;
 import com.webShopBack.utils.StringUtil;
 import org.apache.log4j.Logger;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,6 +57,7 @@ public class ProductionController {
      * @return
      */
     @RequestMapping(value = "/addproduction",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    @RequiresPermissions("addProduction")
     public WebResponse addProduction(@RequestBody Production production){
         String classify = production.getClassify();//分类编号
         String mainImgUrl = production.getMainImgUrl();//主图

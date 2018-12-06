@@ -71,6 +71,6 @@ public class PermissionServiceImpl implements PermissionService {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new WebResponse().error(402,null,"添加权限失败");
         }
-        return new WebResponse().ok(permissionName + "添加成功");
+        return new WebResponse().ok(newPermission);
     }
 }
