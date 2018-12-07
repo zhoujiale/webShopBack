@@ -18,11 +18,44 @@
        <result property="updateTime" column="update_time"/>
    </resultMap>
 
-    <!--返回所有的商品-->
-    <select id="findAllProduction" resultType="Production">
+    <!--动态查询-->
+    <select id="findProduction" resultType="Production">
        SELECT production_id,classify,production_name,title,main_imgurl,
            old_price,new_price,stack,status,create_time,update_time
-        ORDER BY update_time DESC
+       FROM production
+           <where>
+               <if test="productionId != null and productionId != 0">
+                   production_id = #{productionId}
+               </if>
+               <if test="classify != null and classify != ''">
+                  and classify = #{classify}
+               </if>
+               <if test="productionName != null and productionName != ''">
+                  and production_name = #{productionName}
+               </if>
+               <if test="title != null and title != ''">
+                  and title = #{title}
+               </if>
+               <if test="oldPrice != null ">
+                   and old_price = #{oldPrice}
+               </if>
+               <if test="newPrice != null">
+                   and new_price = #{newPrice}
+               </if>
+               <if test="stack != null and stack != 0">
+                   and stack = #{stack}
+               </if>
+               <if test="status != null">
+                   and status = #{status}
+               </if>
+               <if test="createTime != null">
+                   and create_time = #{createTime}
+               </if>
+               <if test="updateTime != null">
+                   and update_time = #{updateTime}
+               </if>
+           </where>
+       ORDER BY production_id
     </select>
 
     <!--添加商品-->

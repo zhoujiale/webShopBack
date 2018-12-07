@@ -1,8 +1,10 @@
 package com.webShopBack.dao;
 
 import com.webShopBack.entity.Production;
-import com.webShopBack.response.WebResponse;
 import org.springframework.stereotype.Repository;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @Auther: zhou
@@ -17,9 +19,10 @@ public interface ProductionDao {
      * @author zhou
      * @created  2018/12/4 19:19
      * @param
+     * @param production
      * @return
      */
-    WebResponse findAllProduction();
+    List<Production> findProduction(HashMap<String, Object> production);
 
     /**
      * @description 添加商品

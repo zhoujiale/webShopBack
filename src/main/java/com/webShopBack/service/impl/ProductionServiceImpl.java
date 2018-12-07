@@ -4,6 +4,7 @@ package com.webShopBack.service.impl;/**
  * @Description:
  */
 
+import com.github.pagehelper.PageHelper;
 import com.webShopBack.dao.ProductionDao;
 import com.webShopBack.entity.Production;
 import com.webShopBack.response.WebResponse;
@@ -13,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import redis.clients.jedis.Transaction;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  *@ClassName ProductionServiceImpl
@@ -34,16 +37,20 @@ public class ProductionServiceImpl implements ProductionService{
      * @description 返回所有的商品
      * @author zhou
      * @created  2018/12/4 18:55    
-     * @param 
-     * @return 
+     * @param
+     * @param pageNum
+     * @param pageSize
+     * @param production
+     * @return
      */
     @Override
-    public WebResponse findAllProduction() {
-        WebResponse webResponse = productionDao.findAllProduction();
-        if (webResponse == null) {
-            return null;
+    public WebResponse findProduction(int pageNum, int pageSize, HashMap<String, Object> production) {
+        PageHelper.startPage(pageNum,pageSize);
+       List<Production> list = productionDao.findProduction(production);
+        if (list == null || list.size() == 0) {
+            return new WebResponse().ok(list);
         }
-        return webResponse;
+        return new WebResponse().ok(list);
     }
     
     /**
