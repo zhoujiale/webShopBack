@@ -19,15 +19,17 @@
    </resultMap>
 
     <!--动态查询-->
-    <select id="findProduction" resultType="Production">
-       SELECT production_id,classify,production_name,title,main_imgurl,
-           old_price,new_price,stack,status,create_time,update_time
-       FROM production
+    <select id="findProduction" resultType="Map">
+       SELECT production_id as productionId,s.sub_classify_name as subClassifyName,c.classify_name as classifyName,
+        production_name as productionName,title,main_imgurl as mainImgUrl,old_price as orlPrice,new_price as newPrice,
+        stack,p.status,create_time as createTime,update_time as updateTime
+       FROM production p,sub_classify s,classify c
            <where>
+                   p.classify = s.id and s.main_classify_id = c.id
                <if test="productionId != null and productionId != 0">
-                   production_id = #{productionId}
+                   and production_id = #{productionId}
                </if>
-               <if test="classify != null and classify != ''">
+               <if test="classify != null and classify != 0">
                   and classify = #{classify}
                </if>
                <if test="productionName != null and productionName != ''">

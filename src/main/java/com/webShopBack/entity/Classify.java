@@ -13,10 +13,8 @@ package com.webShopBack.entity;/**
  **/
 public class Classify {
 
-    //id
+    //类目id
     private int id;
-    //类目编号
-    private String classify;
     //类目名称
     private String classifyName;
     //类目状态
@@ -25,9 +23,8 @@ public class Classify {
     public Classify() {
     }
 
-    public Classify(int id, String classify, String classifyName, boolean status) {
+    public Classify(int id, String classifyName, boolean status) {
         this.id = id;
-        this.classify = classify;
         this.classifyName = classifyName;
         this.status = status;
     }
@@ -38,14 +35,6 @@ public class Classify {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getClassify() {
-        return classify;
-    }
-
-    public void setClassify(String classify) {
-        this.classify = classify;
     }
 
     public String getClassifyName() {
@@ -62,5 +51,14 @@ public class Classify {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Classify{" +
+                "id=" + id +
+                ", classifyName='" + classifyName + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

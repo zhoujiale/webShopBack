@@ -61,7 +61,8 @@ public class ProductionController {
     @RequestMapping(value = "/add",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     @RequiresPermissions("addProduction")
     public WebResponse addProduction(@RequestBody Production production){
-        String classify = production.getClassify();//分类编号
+        int mainClassify = production.getMainClassify();//父类目
+        int subClassify = production.getSubClassify();//子分类
         String mainImgUrl = production.getMainImgUrl();//主图
         BigDecimal newPrice = production.getNewPrice();//新价格
         BigDecimal oldPrice = production.getOldPrice();//旧价格
@@ -69,7 +70,7 @@ public class ProductionController {
         String title = production.getTitle();//商品标题
         int stack = production.getStack();//库存
         //验空
-        if(isEmpty(classify)||isEmpty(mainImgUrl)||isEmpty(productionName)||isEmpty(title)
+        if(isIntEmpty(subClassify)||isIntEmpty(mainClassify)||isEmpty(mainImgUrl)||isEmpty(productionName)||isEmpty(title)
                 ||isIntEmpty(stack)||isDecimalEmpty(newPrice)||isDecimalEmpty(oldPrice)){
            log.error("参数不全");
            return new WebResponse().error(401,"","参数不全");
@@ -91,8 +92,8 @@ public class ProductionController {
      */
     @RequestMapping(value = "/edit",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public WebResponse editProduction(@RequestBody Production production){
-        if(isEmpty(production.getProductionName())||isEmpty(production.getTitle())||isEmpty(production.getClassify())||
-                isEmpty(production.getMainImgUrl()) ||isDecimalEmpty(production.getOldPrice())||
+        if(isEmpty(production.getProductionName())||isEmpty(production.getTitle())||isIntEmpty(production.getSubClassify())||
+                isIntEmpty(production.getMainClassify())||isEmpty(production.getMainImgUrl()) ||isDecimalEmpty(production.getOldPrice())||
                 isDecimalEmpty(production.getNewPrice())|| (Integer)production.getStack() == null||
                 (Boolean)production.isStatus() == null){
            log.error("参数错误");

@@ -14,8 +14,10 @@ public class Production {
 
     //商品编号
     private int productionId;
-    //类目
-    private String classify;
+    //父类目
+    private int mainClassify;
+    //子类目
+    private int subClassify;
     //商品名称
     private String productionName;
     //商品标题
@@ -39,11 +41,12 @@ public class Production {
 
     }
 
-    public Production(int productionId, String classify, String productionName, String title, String mainImgUrl,
-                      BigDecimal oldPrice, BigDecimal newPrice, int stack, boolean status, Date createTime,
-                      Date updateTime) {
+    public Production(int productionId, int mainClassify, int subClassify, String productionName, String title,
+                      String mainImgUrl, BigDecimal oldPrice, BigDecimal newPrice, int stack, boolean status,
+                      Date createTime, Date updateTime) {
         this.productionId = productionId;
-        this.classify = classify;
+        this.mainClassify = mainClassify;
+        this.subClassify = subClassify;
         this.productionName = productionName;
         this.title = title;
         this.mainImgUrl = mainImgUrl;
@@ -63,12 +66,12 @@ public class Production {
         this.productionId = productionId;
     }
 
-    public String getClassify() {
-        return classify;
+    public int getSubClassify() {
+        return subClassify;
     }
 
-    public void setClassify(String classify) {
-        this.classify = classify;
+    public void setSubClassify(int subClassify) {
+        this.subClassify = subClassify;
     }
 
     public String getProductionName() {
@@ -143,11 +146,20 @@ public class Production {
         this.updateTime = updateTime;
     }
 
+    public int getMainClassify() {
+        return mainClassify;
+    }
+
+    public void setMainClassify(int mainClassify) {
+        this.mainClassify = mainClassify;
+    }
+
     @Override
     public String toString() {
         return "Production{" +
                 "productionId=" + productionId +
-                ", classify=" + classify +
+                ", mainClassify=" + mainClassify +
+                ", subClassify=" + subClassify +
                 ", productionName='" + productionName + '\'' +
                 ", title='" + title + '\'' +
                 ", mainImgUrl='" + mainImgUrl + '\'' +
@@ -159,6 +171,4 @@ public class Production {
                 ", updateTime=" + updateTime +
                 '}';
     }
-
-
 }

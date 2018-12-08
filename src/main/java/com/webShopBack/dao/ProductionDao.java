@@ -22,7 +22,7 @@ public interface ProductionDao {
      * @param production
      * @return
      */
-    List<Production> findProduction(HashMap<String, Object> production);
+    List<HashMap<String,Object>> findProduction(HashMap<String, Object> production);
 
     /**
      * @description 添加商品
