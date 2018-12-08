@@ -32,4 +32,13 @@ public interface ProductionDao {
      * @return
      */
     int addProduction(Production production);
+
+    /**
+     * @description 编辑商品
+     * @author zhou
+     * @created  2018/12/8 10:13
+     * @param production
+     * @return
+     */
+    int editProduction(Production production);
 }

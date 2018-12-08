@@ -91,9 +91,10 @@ public class ProductionController {
      */
     @RequestMapping(value = "/edit",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public WebResponse editProduction(@RequestBody Production production){
-        if(isEmpty(production.getProductionName())||isEmpty(production.getTitle())||isEmpty(production.getMainImgUrl())
-                ||isDecimalEmpty(production.getOldPrice())||isDecimalEmpty(production.getNewPrice())||
-                (Integer)production.getStack() == null||(Boolean)production.isStatus() == null){
+        if(isEmpty(production.getProductionName())||isEmpty(production.getTitle())||isEmpty(production.getClassify())||
+                isEmpty(production.getMainImgUrl()) ||isDecimalEmpty(production.getOldPrice())||
+                isDecimalEmpty(production.getNewPrice())|| (Integer)production.getStack() == null||
+                (Boolean)production.isStatus() == null){
            log.error("参数错误");
            return new WebResponse().error(401,"","参数错误");
         }
@@ -106,6 +107,6 @@ public class ProductionController {
             return new WebResponse().error(403,"","库存错误");
         }
         WebResponse webResponse = productionService.editProduction(production);
-        return null;
+        return webResponse;
     }
 }

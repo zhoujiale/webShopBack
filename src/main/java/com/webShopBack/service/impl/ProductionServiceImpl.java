@@ -73,7 +73,29 @@ public class ProductionServiceImpl implements ProductionService{
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new WebResponse().error(402,"","添加失败");
         }
+        return new WebResponse().ok(production);
+    }
 
+    /**
+     * @description 编辑产品
+     * @author zhou
+     * @created  2018/12/8 10:04
+     * @param production
+     * @return
+     */
+    @Override
+    @Transactional
+    public WebResponse editProduction(Production production) {
+        try{
+           int count = productionDao.editProduction(production);
+           if(count != 1 && count != 0){
+               throw new RuntimeException();
+           }
+        }catch (Exception e){
+            log.error("编辑商品失败");
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return new WebResponse().error(404,"","编辑商品失败");
+        }
         return new WebResponse().ok(production);
     }
 }

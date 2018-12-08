@@ -65,4 +65,36 @@
                 VALUES (#{classify},#{productionName},#{title},#{mainImgUrl},
                 #{oldPrice},#{newPrice},#{stack},#{status},#{createTime},#{updateTime})
     </insert>
+
+    <!--编辑商品-->
+    <update id="editProduction" parameterType="Production" >
+        UPDATE production
+        <trim prefix="set" suffixOverrides=",">
+          <if test="productionName != null and productionName != ''">
+              production_name = #{productionName},
+          </if>
+          <if test="title != null and title != ''">
+              title = #{title},
+          </if>
+          <if test="mainImgUrl != null and mainImgUrl != ''">
+              mainImgUrl = #{main_imgurl},
+          </if>
+          <if test="stack != null">
+              stack = #{stack},
+          </if>
+          <if test="oldPrice != null">
+              old_price = #{oldPrice},
+          </if>
+          <if test="newPrice != null">
+              new_price = #{newPrice},
+          </if>
+          <if test="status != null">
+              status = #{status},
+          </if>
+          <if test="classify != null and classify != ''">
+              classify = #{classify},
+          </if>
+        </trim>
+        WHERE production_id = #{productionId}
+    </update>
 </mapper>
