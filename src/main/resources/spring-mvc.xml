@@ -18,7 +18,7 @@
     <!-- 使用默认的Servlet来响应静态文件 -->
     <mvc:default-servlet-handler/>
     <!--注解进行扫描controller层-->
-    <context:component-scan base-package="com.webShopBack.controller"
+    <context:component-scan base-package="com.webshopback.controller"
                             use-default-filters="false">
         <!--扫描@controller-->
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>

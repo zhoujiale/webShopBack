@@ -42,7 +42,7 @@
     <!-- Shiro生命周期处理器-->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
     <!--Realm-->
-    <bean id="myRealm" class="com.webShopBack.shrio.myRealm">
+    <bean id="myRealm" class="com.webshopback.shrio.myRealm">
         <!--配置缓存管理器-->
         <property name="cacheManager" ref="cacheManger"/>
         <!--配置加密器-->

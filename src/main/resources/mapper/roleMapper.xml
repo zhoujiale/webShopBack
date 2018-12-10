@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.webShopBack.dao.RoleDao">
+<mapper namespace="com.webshopback.dao.RoleDao">
 
     <resultMap id="roleResultType" type="String">
         <result property="roleName" column="role_name"/>

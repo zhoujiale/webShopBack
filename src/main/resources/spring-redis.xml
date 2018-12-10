@@ -41,7 +41,7 @@
         <property name="defaultExpiration" value="3000"/>
     </bean>
     <!--配置RedisCacheConfig-->
-    <bean id="redisCacheConfig" class="com.webShopBack.redis.RedisCacheConfig">
+    <bean id="redisCacheConfig" class="com.webshopback.redis.RedisCacheConfig">
         <constructor-arg ref="connectionFactory"/>
         <constructor-arg ref="redisTemplate"/>
         <constructor-arg ref="redisCacheManager"/>
