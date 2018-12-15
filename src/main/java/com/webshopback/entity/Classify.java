@@ -13,8 +13,8 @@ package com.webshopback.entity;/**
  **/
 public class Classify {
 
-    /**id*/
-    private int id;
+    /**classifyId*/
+    private int classifyId;
     /**类目名称*/
     private String classifyName;
     /**类目状态*/
@@ -23,18 +23,18 @@ public class Classify {
     public Classify() {
     }
 
-    public Classify(int id, String classifyName, boolean status) {
-        this.id = id;
+    public Classify(int classifyId, String classifyName, boolean status) {
+        this.classifyId = classifyId;
         this.classifyName = classifyName;
         this.status = status;
     }
 
-    public int getId() {
-        return id;
+    public int getclassifyId() {
+        return classifyId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setclassifyId(int id) {
+        this.classifyId = classifyId;
     }
 
     public String getClassifyName() {
@@ -56,7 +56,7 @@ public class Classify {
     @Override
     public String toString() {
         return "Classify{" +
-                "id=" + id +
+                "classifyId=" + classifyId +
                 ", classifyName='" + classifyName + '\'' +
                 ", status=" + status +
                 '}';
