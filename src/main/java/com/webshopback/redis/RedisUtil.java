@@ -5,7 +5,6 @@ package com.webshopback.redis;/**
  */
 
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
@@ -16,7 +15,6 @@ import java.io.Serializable;
  *Date 2018/12/4 15:05
  *@Version 1.0
  **/
-@Component
 public class RedisUtil {
 
     private RedisTemplate<Serializable,Object> redisTemplate;

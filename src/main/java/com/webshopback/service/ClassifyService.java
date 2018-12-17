@@ -13,8 +13,7 @@ public interface ClassifyService {
      * @description 分页返回分类记录
      * @author zhou
      * @created  2018/12/11 14:21
-     * @param pageNum 页号
-     * @param pageSize 每页返回大小
+     * @param 
      * @return 
      */
     WebResponse findAllByClassify(int pageNum, int pageSize);

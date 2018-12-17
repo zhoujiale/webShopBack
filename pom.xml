@@ -46,6 +46,7 @@
             <artifactId>spring-context</artifactId>
             <version>4.3.4.RELEASE</version>
         </dependency>
+
         <!--Spring Core-->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -83,6 +84,7 @@
             <version>4.3.4.RELEASE</version>
             <scope>test</scope>
         </dependency>
+
         <!-- aspectj AOP -->
         <dependency>
             <groupId>org.aspectj</groupId>
