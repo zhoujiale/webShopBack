@@ -92,7 +92,7 @@ public class UserController {
                 return new WebResponse().error(405, null, "未知错误");
             }
         }
-        HashMap<String,Object> userMap = new HashMap<>();
+        HashMap<String,Object> userMap = new HashMap<>(4);
         userMap.put("msg",userName + "登陆成功");
         userMap.put("role",roleList);
         userMap.put("permission",permissionList);
