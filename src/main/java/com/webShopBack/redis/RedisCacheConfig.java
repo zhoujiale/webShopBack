@@ -75,8 +75,6 @@ public class RedisCacheConfig extends CachingConfigurerSupport{
                 }
                 return sb.toString();
             }
-
-
         };
     }
 }
