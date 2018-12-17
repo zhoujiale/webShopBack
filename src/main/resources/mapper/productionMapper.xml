@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.webshopback.dao.ProductionDao">
+<mapper namespace="com.webShopBack.dao.ProductionDao">
     <!--商品类-->
    <resultMap id="production" type="Production">
        <id property="productionId" column="production_id"/>
@@ -25,7 +25,7 @@
         stack,p.status,create_time as createTime,update_time as updateTime
        FROM production p,sub_classify s,classify c
            <where>
-                   p.classify = s.id and s.main_classify_id = c.id
+                   p.classify = s.sub_classify_id and s.main_classify_id = c.classify_id
                <if test="productionId != null and productionId != 0">
                    and production_id = #{productionId}
                </if>

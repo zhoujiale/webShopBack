@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.webshopback.entity.Classify">
+<mapper namespace="com.webShopBack.entity.Classify">
     <!--父类目-->
     <resultMap id="classify" type="Classify">
        <id property="classifyId" column="classify_id"/>
@@ -23,8 +23,7 @@
         SELECT classify_id,classify_name,status
          from classify where status = TRUE ORDER BY classify_id
     </select>
-    
-    <select id="findClassifyName" resultType=""></select>
+
 
     <!--返回子类目-->
     <select id="findAllBySubClassify" resultMap="subClassify" resultType="Map">
