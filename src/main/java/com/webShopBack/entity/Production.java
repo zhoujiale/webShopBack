@@ -1,5 +1,6 @@
 package com.webShopBack.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -10,7 +11,7 @@ import java.util.Date;
  *Date 2018/12/4 17:30
  *@Version 1.0
  **/
-public class Production {
+public class Production implements Serializable{
 
     /**商品编号*/
     private int productionId;

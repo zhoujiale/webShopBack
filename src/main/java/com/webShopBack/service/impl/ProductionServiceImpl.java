@@ -5,6 +5,7 @@ package com.webShopBack.service.impl;/**
  */
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.webShopBack.dao.ProductionDao;
 import com.webShopBack.entity.Production;
 import com.webShopBack.response.WebResponse;
@@ -46,11 +47,13 @@ public class ProductionServiceImpl implements ProductionService{
     @Override
     public WebResponse findProduction(int pageNum, int pageSize, HashMap<String, Object> production) {
         PageHelper.startPage(pageNum,pageSize);
-       List<HashMap<String,Object>> list = productionDao.findProduction(production);
+        List<HashMap<String,Object>> list = productionDao.findProduction(production);
         if (list == null || list.size() == 0) {
             return new WebResponse().ok(list);
         }
-        return new WebResponse().ok(list);
+        PageInfo<HashMap<String,Object>> page = new PageInfo<>(list);
+        //List productionList = page.getList();
+        return new WebResponse().ok(page);
     }
 
     /**

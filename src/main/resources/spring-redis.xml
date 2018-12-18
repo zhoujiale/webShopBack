@@ -39,10 +39,13 @@
             <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
         </property>
         <property name="valueSerializer">
-            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
         </property>
         <property name="hashKeySerializer">
             <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+        <property name="hashValueSerializer">
+            <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
         </property>
     </bean>
     <!--RedisManager-->
@@ -60,8 +63,14 @@
     <bean id="methodCacheInterceptor" class="com.webShopBack.redis.MethodCacheInterceptor">
         <property name="redisUtil" ref="redisUtil"/>
         <property name="defaultCacheExpireTime" value="${defaultCacheExpireTime}"/>
-        <!--禁用缓存列表-->
-        <property name="targetNameList">
+        <!--禁用缓存类名列表-->
+        <property name="targetNamesList">
+            <list>
+                <value></value>
+            </list>
+        </property>
+        <!--禁用缓存的方法名列表-->
+        <property name="methodNamesList">
             <list>
                 <value></value>
             </list>
@@ -71,10 +80,11 @@
     <bean id="redisUtil" class="com.webShopBack.redis.RedisUtil">
         <property name="redisTemplate" ref="redisTemplate"/>
     </bean>
+    <aop:aspectj-autoproxy/>
     <!--配置切面拦截方法-->
     <aop:config proxy-target-class="true">
         <aop:pointcut id="controllerMethodPoint" expression="
-          execution(* com.webShopBack.dao.find*(..))"/>
+          execution( * com.webShopBack.dao.*.find*(..))"/>
         <aop:advisor advice-ref="methodCacheInterceptor" pointcut-ref="controllerMethodPoint"/>
     </aop:config>
 </beans>

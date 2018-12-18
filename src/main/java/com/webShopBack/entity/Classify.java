@@ -4,6 +4,8 @@ package com.webShopBack.entity;/**
  * @Description:
  */
 
+import java.io.Serializable;
+
 /**
  *@ClassName Classify
  *@Description 商品类目
@@ -11,7 +13,7 @@ package com.webShopBack.entity;/**
  *Date 2018/12/4 18:03
  *@Version 1.0
  **/
-public class Classify {
+public class Classify implements Serializable{
 
     /**classifyId*/
     private int classifyId;

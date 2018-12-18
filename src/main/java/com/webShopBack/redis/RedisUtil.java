@@ -4,6 +4,7 @@ package com.webShopBack.redis;/**
  * @Description:
  */
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
@@ -21,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 public class RedisUtil {
 
 
-
+    @Autowired
     private RedisTemplate<Serializable,Object> redisTemplate;
 
     public void setRedisTemplate(RedisTemplate redisTemplate) {
@@ -78,7 +79,7 @@ public class RedisUtil {
      * @param key
      * @return 
      */
-    private boolean exists(String key) {
+    public boolean exists(String key) {
         return redisTemplate.hasKey(key);
     }
 

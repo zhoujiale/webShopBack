@@ -4,6 +4,8 @@ package com.webShopBack.entity;/**
  * @Description:
  */
 
+import java.io.Serializable;
+
 /**
  *@ClassName SubClassify
  *@Description 子类目
@@ -11,7 +13,7 @@ package com.webShopBack.entity;/**
  *Date 2018/12/8 17:43
  *@Version 1.0
  **/
-public class SubClassify {
+public class SubClassify implements Serializable{
     /**子类目id*/
     public int subClassifyId;
     /**子类目名称*/
