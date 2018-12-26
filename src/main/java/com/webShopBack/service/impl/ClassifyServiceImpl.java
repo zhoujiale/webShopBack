@@ -50,11 +50,12 @@ public class ClassifyServiceImpl implements ClassifyService{
     @Override
     public WebResponse findAllByClassify(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        //查询所有的父类目
-        List<HashMap<String,Object>> classifyList = classifyDao.findAllByClassify();
-        //查询所有的子类目
-        List<HashMap<String,Object>> subClassifyList = classifyDao.findAllBySubClassify();
-        return null;
+        List<HashMap<String,Object>> list = subClassifyDao.findAllClassify();
+        if(list.size() ==0){
+            log.error("类目为空");
+            return new WebResponse().error(400,"","类目为空");
+        }
+        return new WebResponse().ok(list);
     }
 
     /**

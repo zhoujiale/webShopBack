@@ -49,5 +49,5 @@ public interface ClassifyDao {
      * @param
      * @return
      */
-    int findClassifyByMainName(String mainClassifyName);
+    Integer findClassifyByMainName(String mainClassifyName);
 }

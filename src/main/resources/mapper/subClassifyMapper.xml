@@ -23,4 +23,12 @@
         INSERT INTO sub_classify(sub_classify_name, status, main_classify_id)
                 VALUES (#{subClassifyName},#{status},#{mainClassifyId})
     </insert>
+
+    <!--返回所有类目-->
+    <select id="findAllClassify" resultType="Map">
+        select c.classify_id,c.classify_name,s.sub_classify_id,s.sub_classify_name
+        from sub_classify s,classify c
+        where s.main_classify_id = c.classify_id  and s.status = 1 and c.status = 1
+        order by c.classify_id,s.sub_classify_id
+    </select>
 </mapper>

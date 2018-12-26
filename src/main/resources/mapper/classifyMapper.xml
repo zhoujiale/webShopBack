@@ -23,8 +23,9 @@
                 VALUES (#{classifyName},#{status})
     </insert>
 
+    <!--通过父类目名称查id-->
     <select id="findClassifyByMainName" resultType="Integer">
-        SELECT classify_id as classifId FROM classify
+        SELECT classify_id as classifyId FROM classify
         WHERE classify_name = #{mainClassifyName}
     </select>
 
