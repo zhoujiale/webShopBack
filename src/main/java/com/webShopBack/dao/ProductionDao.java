@@ -1,6 +1,7 @@
 package com.webShopBack.dao;
 
 import com.webShopBack.entity.Production;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -40,5 +41,24 @@ public interface ProductionDao {
      * @param production
      * @return
      */
-    int editProduction(Production production);
+    int editProduction(HashMap<String, Object> production);
+
+    /**
+     * @description 下架商品
+     * @author zhou
+     * @created  2018/12/26 10:54    
+     * @param productionId
+     * @param newStatus
+     * @return 
+     */
+    int deleteProduction(@Param("productionId") Integer productionId,@Param("newStatus") Integer newStatus);
+
+    /**
+     * @description 通过id查找商品
+     * @author zhou
+     * @created  2018/12/26 13:51    
+     * @param 
+     * @return 
+     */
+    Production findProductionById(Integer productionId);
 }

@@ -4,6 +4,8 @@ package com.webShopBack.aspect;/**
  * @Description:
  */
 
+import com.webShopBack.utils.LogAopUtil;
+import org.apache.ibatis.javassist.NotFoundException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
@@ -38,7 +40,7 @@ public class WebLogAspect {
     }
 
     @Before("webLog()")
-    public void doBefore(JoinPoint joinPoint){
+    public void doBefore(JoinPoint joinPoint) throws ClassNotFoundException, NotFoundException, javassist.NotFoundException {
         System.out.println("前置通知");
         startTime.set(System.currentTimeMillis());
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -53,16 +55,26 @@ public class WebLogAspect {
             params.add(param);
         }
 
+
+        Object[] args = joinPoint.getArgs();
+        String classType = joinPoint.getTarget().getClass().getName();
+        Class<?> clazz = Class.forName(classType);
+        String clazzName = clazz.getName();
+        //获取方法名称
+        String methodName = joinPoint.getSignature().getName();
+        StringBuffer stringBuffer = LogAopUtil.getNameAndArgs(this.getClass(),clazzName,methodName,args);
+        //log.info("new Params:" + stringBuffer);
+
         //url
-        log.debug("URL: " + request.getRequestURL().toString());
+        log.info("URL: " + request.getRequestURL().toString());
         //method
-        log.debug("METHOD: " + request.getMethod());
+        log.info("METHOD: " + request.getMethod());
         //params
-        log.debug("PARAMS: " + params.toString());
+        log.info("PARAMS: " + stringBuffer);
         //ip
-        log.debug("IP: " + request.getRemoteAddr());
+        log.info("IP: " + request.getRemoteAddr());
         //类方法
-        log.debug("CLASS_METHOD: " + joinPoint.getSignature().getDeclaringTypeName()+"."+ joinPoint.getSignature().getName());
+        log.info("CLASS_METHOD: " + joinPoint.getSignature().getDeclaringTypeName()+"."+ joinPoint.getSignature().getName());
         //参数
         //log.info("args={}", Arrays.toString(joinPoint.getArgs()));
     }

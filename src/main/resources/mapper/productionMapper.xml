@@ -6,10 +6,11 @@
     <!--商品类-->
    <resultMap id="production" type="Production">
        <id property="productionId" column="production_id"/>
-       <result property="classify" column="classify"/>
+       <result property="mainClassify" column="main_classify"/>
+       <result property="subClassify" column="sub_classify"/>
        <result property="productionName" column="production_name"/>
        <result property="title" column="title"/>
-       <result property="mainImgUrl" column="main_imgurl"/>
+       <result property="mainImgUrl" column="main_img_url"/>
        <result property="oldPrice" column="old_price"/>
        <result property="newPrice" column="new_price"/>
        <result property="stack" column="stack"/>
@@ -20,17 +21,20 @@
 
     <!--动态查询-->
     <select id="findProduction" resultType="Map">
-       SELECT production_id as productionId,s.sub_classify_name as subClassifyName,c.classify_name as classifyName,
-        production_name as productionName,title,main_imgurl as mainImgUrl,old_price as orlPrice,new_price as newPrice,
+       SELECT production_id as productionId,s.sub_classify_name as subClassifyName,c.classify_name as mainClassifyName,
+        production_name as productionName,title,main_img_url as mainImgUrl,old_price as oldPrice,new_price as newPrice,
         stack,p.status,create_time as createTime,update_time as updateTime
        FROM production p,sub_classify s,classify c
            <where>
-                   p.classify = s.sub_classify_id and s.main_classify_id = c.classify_id
+                   p.sub_classify = s.sub_classify_id and s.main_classify_id = c.classify_id
                <if test="productionId != null and productionId != 0">
                    and production_id = #{productionId}
                </if>
-               <if test="classify != null and classify != 0">
-                  and classify = #{classify}
+               <if test="mainClassify != null and mainClassify != 0">
+                  and main_classify = #{mainClassify}
+               </if>
+               <if test="subClassify != null and subClassify != 0">
+                   and sub_classify = #{subClassify}
                </if>
                <if test="productionName != null and productionName != ''">
                   and production_name = #{productionName}
@@ -62,14 +66,14 @@
 
     <!--添加商品-->
     <insert id="addProduction" parameterType="Production" useGeneratedKeys="true" keyProperty="productionId">
-        INSERT INTO production(classify,production_name,title,main_imgurl,old_price,new_price,
+        INSERT INTO production(main_classify,sub_classify,production_name,title,main_img_url,old_price,new_price,
         stack,status,create_time,update_time)
                 VALUES (#{classify},#{productionName},#{title},#{mainImgUrl},
                 #{oldPrice},#{newPrice},#{stack},#{status},#{createTime},#{updateTime})
     </insert>
 
     <!--编辑商品-->
-    <update id="editProduction" parameterType="Production" >
+    <update id="editProduction" parameterType="Map" >
         UPDATE production
         <trim prefix="set" suffixOverrides=",">
           <if test="productionName != null and productionName != ''">
@@ -79,7 +83,7 @@
               title = #{title},
           </if>
           <if test="mainImgUrl != null and mainImgUrl != ''">
-              mainImgUrl = #{main_imgurl},
+              main_img_url = #{mainImgUrl},
           </if>
           <if test="stack != null">
               stack = #{stack},
@@ -93,10 +97,23 @@
           <if test="status != null">
               status = #{status},
           </if>
-          <if test="classify != null and classify != ''">
-              classify = #{classify},
+          <if test="mainClassifyName != null and mainClassifyName !=''">
+              main_classify = (select classify_id from classify where classify_name = #{mainClassifyName}),
+          </if>
+          <if test="subClassifyName != null and subClassifyName != ''">
+              sub_classify = (select sub_classify_id from sub_classify where sub_classify_name = #{subClassifyName}),
           </if>
         </trim>
         WHERE production_id = #{productionId}
     </update>
+
+    <!--下架商品-->
+    <update id="deleteProduction">
+        UPDATE production SET status = #{newStatus} WHERE production_id = #{productionId}
+    </update>
+
+    <!--通过id查找商品-->
+    <select id="findProductionById" resultType="Production" resultMap="production">
+         SELECT * From production WHERE production_id = #{productionId}
+    </select>
 </mapper>

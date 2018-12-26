@@ -88,7 +88,7 @@ public class ProductionServiceImpl implements ProductionService{
      */
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    public WebResponse editProduction(Production production) {
+    public WebResponse editProduction(HashMap<String, Object> production) {
         try{
            int count = productionDao.editProduction(production);
            if(count != 1 && count != 0){
@@ -100,5 +100,32 @@ public class ProductionServiceImpl implements ProductionService{
             return new WebResponse().error(404,"","编辑商品失败");
         }
         return new WebResponse().ok(production);
+    }
+
+    /**
+     * @description 下架/上架商品
+     * @author zhou
+     * @created  2018/12/26 10:52
+     * @param productionId
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = {Exception.class})
+    public WebResponse deleteProduction(Integer productionId) {
+        Production production = productionDao.findProductionById(productionId);
+        boolean status = production.isStatus();
+        int newStatus = status?0:1;
+        String str = status?("下架成功"):("上架成功");
+        try{
+            int deleteCount = productionDao.deleteProduction(productionId,newStatus);
+            if(deleteCount == 0){
+                throw new RuntimeException();
+            }
+        }catch (Exception e){
+            log.error("操作失败");
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return new WebResponse().error(401,"","操作失败");
+        }
+        return new WebResponse().ok(str);
     }
 }

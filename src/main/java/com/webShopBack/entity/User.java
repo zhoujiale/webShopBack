@@ -14,7 +14,6 @@ import java.util.Date;
  *Date 2018/10/17 14:49
  *@Version 1.0
  **/
-
 public class User implements Serializable{
 
     private static final long serialVersionUID = 1L;

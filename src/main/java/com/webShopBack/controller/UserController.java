@@ -83,10 +83,10 @@ public class UserController {
                 return new WebResponse().error(402, null, "账号不存在");
             } catch (IncorrectCredentialsException ice) {
                 log.error("密码错误,请重试");
-                return new WebResponse().error(403, null, "密码错误，请重试");
+                return new WebResponse().error(403, null, "密码错误,请重试");
             } catch (LockedAccountException lae) {
                 log.error("该账号已被禁用,无法登陆");
-                return new WebResponse().error(404, null, "该账号已被禁用，无法登陆");
+                return new WebResponse().error(404, null, "该账号已被禁用,无法登陆");
             } catch (AuthenticationException ae) {
                 log.error("未知错误");
                 return new WebResponse().error(405, null, "未知错误");

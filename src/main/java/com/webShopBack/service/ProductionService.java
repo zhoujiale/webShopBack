@@ -41,5 +41,14 @@ public interface ProductionService {
      * @param production
      * @return
      */
-    WebResponse editProduction(Production production);
+    WebResponse editProduction(HashMap<String, Object> production);
+
+    /**
+     * @description 下架商品
+     * @author zhou
+     * @created  2018/12/26 10:52    
+     * @param 
+     * @return 
+     */
+    WebResponse deleteProduction(Integer productionId);
 }

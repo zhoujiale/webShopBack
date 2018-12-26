@@ -4,6 +4,7 @@ package com.webShopBack.controller;
 import com.webShopBack.entity.Production;
 import com.webShopBack.response.WebResponse;
 import com.webShopBack.service.ProductionService;
+import com.webShopBack.utils.IntUtil;
 import org.apache.log4j.Logger;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class ProductionController {
     private ProductionService productionService;
 
     /**
-     * @description 返回所有的商品
+     * @description 查询商品
      * @author zhou
      * @created  2018/12/4 18:52
      * @param
@@ -95,27 +96,48 @@ public class ProductionController {
      * @description 编辑商品
      * @author zhou
      * @created  2018/12/7 14:04
-     * @param
+     * @param production 商品
      * @return
      */
-    @RequestMapping(value = "/edit",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
-    public WebResponse editProduction(@RequestBody Production production){
-        if(isEmpty(production.getProductionName())||isEmpty(production.getTitle())||isIntEmpty(production.getSubClassify())||
-                isIntEmpty(production.getMainClassify())||isEmpty(production.getMainImgUrl()) ||isDecimalEmpty(production.getOldPrice())||
-                isDecimalEmpty(production.getNewPrice())|| (Integer)production.getStack() == null||
-                (Boolean)production.isStatus() == null){
+    @RequestMapping(value = "/editProduction",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public WebResponse editProduction(@RequestBody HashMap<String,Object> production){
+        if(isEmpty((String) production.get("productionName"))||isEmpty((String)production.get("title"))||
+                isEmpty((String)production.get("subClassifyName"))||isEmpty((String) production.get("mainClassifyName"))
+                ||isEmpty((String)production.get("mainImgUrl")) ||isDecimalEmpty(new BigDecimal(production.get("oldPrice").toString()))||
+                isDecimalEmpty(new BigDecimal(production.get("newPrice").toString()))|| production.get("stack") == null ||
+                (Boolean)production.get("status") == null){
            log.error("参数错误");
            return new WebResponse().error(401,"","参数错误");
         }
-        if(!isTwoDecimal(production.getOldPrice())||!isTwoDecimal(production.getNewPrice())){
+        if(!isTwoDecimal(new BigDecimal(production.get("oldPrice").toString()))||!isTwoDecimal(new BigDecimal(production.get("newPrice").toString()))){
             log.error("价格错误");
             return new WebResponse().error(402,"","价格错误");
         }
-        if(production.getStack()<0){
+        if((Integer)production.get("stack")<0){
             log.error("库存错误");
             return new WebResponse().error(403,"","库存错误");
         }
         WebResponse webResponse = productionService.editProduction(production);
         return webResponse;
     }
+
+    /**
+     * @description 下架商品
+     * @author zhou
+     * @created  2018/12/26 10:49
+     * @param productionId 商品id
+     * @return
+     */
+    @RequestMapping(value = "/deleteProduction",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public WebResponse deleteProduction(Integer productionId){
+
+        if(IntUtil.isIntEmpty(productionId)){
+            log.error("商品编号为空");
+            return new WebResponse().error(400,"","商品编号为空");
+        }
+        WebResponse webResponse = productionService.deleteProduction(productionId);
+        return webResponse;
+    }
+
+
 }
