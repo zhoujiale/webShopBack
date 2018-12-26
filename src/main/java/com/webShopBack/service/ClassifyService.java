@@ -1,6 +1,7 @@
 package com.webShopBack.service;
 
 import com.webShopBack.response.WebResponse;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @Auther: zhou
@@ -26,4 +27,14 @@ public interface ClassifyService {
      * @return
      */
     WebResponse addClassify(String classifyName);
+
+    /**
+     * @description
+     * @author zhou
+     * @created  2018/12/26 15:27
+     * @param
+     * @return
+     */
+    WebResponse addSubClassify(@Param("subClassifyName") String subClassifyName,
+                               @Param("mainClassifyName") String mainClassifyName);
 }

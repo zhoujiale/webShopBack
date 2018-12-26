@@ -1,5 +1,6 @@
 package com.webShopBack.dao;
 
+import com.webShopBack.entity.Classify;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -31,12 +32,22 @@ public interface ClassifyDao {
      */
     List<HashMap<String,Object>> findAllBySubClassify();
 
+
     /**
-     * @description 查询父类目是否有重复
+     * @description 增加父类目
      * @author zhou
-     * @created  2018/12/11 15:00    
-     * @param 
-     * @return 
+     * @created  2018/12/26 14:24
+     * @param classify
+     * @return
      */
-    int findClassifyName();
+    int addMainClassify(Classify classify);
+
+    /**
+     * @description 通过父类目查找Id
+     * @author zhou
+     * @created  2018/12/26 15:34
+     * @param
+     * @return
+     */
+    int findClassifyByMainName(String mainClassifyName);
 }

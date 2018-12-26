@@ -59,6 +59,24 @@ public class ClassifyController {
             return new WebResponse().error(401,"","父类目为空");
         }
         WebResponse webResponse = classifyService.addClassify(classifyName);
-        return null;
+        return webResponse;
+    }
+
+    /**
+     * @description 增加子类目
+     * @author zhou
+     * @created  2018/12/26 15:04
+     * @param subClassifyName 子类目
+     * @param mainClassifyName 父类目
+     * @return 
+     */
+    @RequestMapping(value = "/addSubClassify",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public WebResponse addSubClassify(String subClassifyName,String mainClassifyName){
+        if(StringUtil.isEmpty(subClassifyName)||StringUtil.isEmpty(mainClassifyName)){
+            log.error("参数错误");
+            return new WebResponse().error(400,"","参数错误");
+        }
+        WebResponse webResponse = classifyService.addSubClassify(subClassifyName,mainClassifyName);
+        return webResponse;
     }
 }
