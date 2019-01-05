@@ -1,6 +1,7 @@
 package com.webShopBack.dao;
 
 import com.webShopBack.entity.Classify;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -50,4 +51,14 @@ public interface ClassifyDao {
      * @return
      */
     Integer findClassifyByMainName(String mainClassifyName);
+
+    /**
+     * @description 编辑父类目
+     * @author zhou
+     * @created  2019/1/5 11:24
+     * @param
+     * @return
+     */
+    Integer updateClassify(@Param("classifyId") Integer classifyId,
+                           @Param("classifyName") String classifyName);
 }

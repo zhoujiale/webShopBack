@@ -12,7 +12,7 @@
 
 
     <context:property-placeholder location="classpath*:redis.properties" ignore-unresolvable="true"/>
-    <!--Redis连接池的设置-->
+    <!--Redis连接池-->
     <bean id="PoolConfig" class="redis.clients.jedis.JedisPoolConfig">
        <!--控制一个pool可分配多少个jedis实例-->
         <property name="maxTotal" value="300"/>
@@ -23,7 +23,7 @@
         <!--在获取连接的时候检查有效性-->
         <property name="testOnBorrow" value="true"/>
     </bean>
-    <!--创建redis连接池,并做相关配置-->
+    <!--创建redis连接池配置-->
     <bean id="redisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
         <property name="hostName" value="${redis.host}"/>
         <property name="port" value="${redis.port}"/>
@@ -60,22 +60,22 @@
         <constructor-arg ref="redisCacheManager"/>
     </bean>
     <!--缓存拦截器配置-->
-    <bean id="methodCacheInterceptor" class="com.webShopBack.redis.MethodCacheInterceptor">
-        <property name="redisUtil" ref="redisUtil"/>
-        <property name="defaultCacheExpireTime" value="${defaultCacheExpireTime}"/>
-        <!--禁用缓存类名列表-->
-        <property name="targetNamesList">
-            <list>
-                <value></value>
-            </list>
-        </property>
-        <!--禁用缓存的方法名列表-->
-        <property name="methodNamesList">
-            <list>
-                <value></value>
-            </list>
-        </property>
-    </bean>
+    <!--<bean id="methodCacheInterceptor" class="com.webShopBack.redis.MethodCacheInterceptor">-->
+        <!--<property name="redisUtil" ref="redisUtil"/>-->
+        <!--<property name="defaultCacheExpireTime" value="${defaultCacheExpireTime}"/>-->
+        <!--&lt;!&ndash;缓存类名列表&ndash;&gt;-->
+        <!--<property name="targetNamesList">-->
+            <!--<list>-->
+                <!--<value></value>-->
+            <!--</list>-->
+        <!--</property>-->
+        <!--&lt;!&ndash;缓存的方法名列表&ndash;&gt;-->
+        <!--<property name="methodNamesList">-->
+            <!--<list>-->
+                <!--<value></value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
     <!--redisUtil-->
     <bean id="redisUtil" class="com.webShopBack.redis.RedisUtil">
         <property name="redisTemplate" ref="redisTemplate"/>
@@ -83,9 +83,11 @@
 
     <!--配置切面拦截方法-->
     <aop:aspectj-autoproxy/>
-    <aop:config proxy-target-class="true">
-        <aop:pointcut id="controllerMethodPoint" expression="
-          execution( * com.webShopBack.dao.*.find*(..))"/>
-        <aop:advisor advice-ref="methodCacheInterceptor" pointcut-ref="controllerMethodPoint"/>
-    </aop:config>
+    <!--<aop:config proxy-target-class="true">-->
+        <!--<aop:pointcut id="controllerMethodPoint" expression="-->
+          <!--execution( * com.webShopBack.dao.*.find*(..))"/>-->
+        <!--<aop:advisor advice-ref="methodCacheInterceptor" pointcut-ref="controllerMethodPoint"/>-->
+    <!--</aop:config>-->
+
+
 </beans>

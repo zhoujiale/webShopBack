@@ -1,6 +1,7 @@
 package com.webShopBack.dao;
 
 import com.webShopBack.entity.SubClassify;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -31,4 +32,14 @@ public interface SubClassifyDao {
      * @return 
      */
     List<HashMap<String,Object>> findAllClassify();
+
+    /**
+     * @description 编辑类目
+     * @author zhou
+     * @created  2019/1/5 11:43
+     * @param
+     * @return
+     */
+    Integer updateSubClassify(@Param("classifyId") Integer classifyId,
+                              @Param("classifyName") String classifyName);
 }

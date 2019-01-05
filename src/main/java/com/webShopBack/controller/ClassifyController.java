@@ -6,6 +6,7 @@ package com.webShopBack.controller;/**
 
 import com.webShopBack.response.WebResponse;
 import com.webShopBack.service.ClassifyService;
+import com.webShopBack.utils.IntUtil;
 import com.webShopBack.utils.StringUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,24 @@ public class ClassifyController {
             return new WebResponse().error(400,"","参数错误");
         }
         WebResponse webResponse = classifyService.addSubClassify(subClassifyName,mainClassifyName);
+        return webResponse;
+    }
+
+    /**
+     * @description 修改分类名称
+     * @author zhou
+     * @created  2019/1/5 10:43
+     * @param level 0 父类 1 子类
+     * @param classifyId 类别id
+     * @return
+     */
+    @RequestMapping(value = "/editClassify",method = RequestMethod.POST,produces = "application/json")
+    public WebResponse editClassify(Integer level,Integer classifyId,String classifyName){
+        if(IntUtil.isIntEmpty(level)||IntUtil.isIntEmpty(classifyId)||StringUtil.isEmpty(classifyName)){
+             log.error("参数错误");
+             return new WebResponse().error(400,"","参数错误");
+        }
+        WebResponse webResponse = classifyService.editClassify(level,classifyId,classifyName);
         return webResponse;
     }
 }

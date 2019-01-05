@@ -31,4 +31,10 @@
         where s.main_classify_id = c.classify_id  and s.status = 1 and c.status = 1
         order by c.classify_id,s.sub_classify_id
     </select>
+
+    <!--编辑类目-->
+    <update id="updateSubClassify" >
+        UPDATE sub_classify SET sub_classify_name =#{classifyName}
+        WHERE sub_classify_id = #{classifyId}
+    </update>
 </mapper>

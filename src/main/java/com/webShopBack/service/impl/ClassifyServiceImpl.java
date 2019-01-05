@@ -111,4 +111,33 @@ public class ClassifyServiceImpl implements ClassifyService{
         }
         return new WebResponse().ok("增加子类目成功");
     }
+
+    /**
+     * @description 编辑类目
+     * @author zhou
+     * @created  2019/1/5 11:19
+     * @param level
+     * @param classifyId
+     * @param classifyName
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = {Exception.class})
+    public WebResponse editClassify(Integer level, Integer classifyId, String classifyName) {
+        try {
+            if (level == 0) {
+                //为父类
+                Integer count = classifyDao.updateClassify(classifyId, classifyName);
+
+            } else if (level == 1) {
+                //为子类
+                Integer subCount = subClassifyDao.updateSubClassify(classifyId, classifyName);
+            }
+            return new WebResponse().ok("编辑成功");
+        }catch (Exception e){
+            log.error("编辑失败");
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return new WebResponse().error(401,"","编辑失败");
+        }
+    }
 }

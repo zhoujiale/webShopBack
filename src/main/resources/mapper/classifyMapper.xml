@@ -29,5 +29,11 @@
         WHERE classify_name = #{mainClassifyName}
     </select>
 
+    <!--编辑父类目-->
+    <update id="updateClassify" >
+        UPDATE classify SET classify_name = #{classifyName}
+        WHERE classify_id = #{classifyId}
+    </update>
+
 
 </mapper>

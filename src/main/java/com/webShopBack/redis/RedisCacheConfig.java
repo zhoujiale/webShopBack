@@ -4,6 +4,7 @@ package com.webShopBack.redis;/**
  * @Description:
  */
 
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
@@ -66,9 +67,9 @@ public class RedisCacheConfig extends CachingConfigurerSupport{
     public KeyGenerator keyGenerator(){
         return new KeyGenerator(){
             @Override
-            public Object generate(Object o, Method method, Object... objects) {
+            public Object generate(Object target, Method method, Object... objects) {
                 StringBuilder sb = new StringBuilder();
-                sb.append(o.getClass().getName());
+                sb.append(target.getClass().getName());
                 sb.append(method.getName());
                 for(Object obj : objects){
                     sb.append(obj.toString());
@@ -76,5 +77,17 @@ public class RedisCacheConfig extends CachingConfigurerSupport{
                 return sb.toString();
             }
         };
+    }
+
+    /**
+     * @description 声明缓存管理器
+     * @author zhou
+     * @created  2019/1/5 16:17
+     * @param 
+     * @return 
+     */
+    @Bean
+    public CacheManager cacheManager(RedisTemplate<String,Object> redisTemplate) {
+        return new RedisCacheManager(redisTemplate);
     }
 }

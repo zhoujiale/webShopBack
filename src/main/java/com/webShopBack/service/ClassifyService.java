@@ -29,7 +29,7 @@ public interface ClassifyService {
     WebResponse addClassify(String classifyName);
 
     /**
-     * @description
+     * @description 添加子类目
      * @author zhou
      * @created  2018/12/26 15:27
      * @param
@@ -37,4 +37,15 @@ public interface ClassifyService {
      */
     WebResponse addSubClassify(@Param("subClassifyName") String subClassifyName,
                                @Param("mainClassifyName") String mainClassifyName);
+
+    /**
+     * @description
+     * @author zhou
+     * @created  2019/1/5 10:55
+     * @param level
+     * @param classifyId
+     * @param classifyName
+     * @return
+     */
+    WebResponse editClassify(Integer level, Integer classifyId, String classifyName);
 }
