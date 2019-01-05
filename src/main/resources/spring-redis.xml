@@ -80,8 +80,9 @@
     <bean id="redisUtil" class="com.webShopBack.redis.RedisUtil">
         <property name="redisTemplate" ref="redisTemplate"/>
     </bean>
-    <aop:aspectj-autoproxy/>
+
     <!--配置切面拦截方法-->
+    <aop:aspectj-autoproxy/>
     <aop:config proxy-target-class="true">
         <aop:pointcut id="controllerMethodPoint" expression="
           execution( * com.webShopBack.dao.*.find*(..))"/>
