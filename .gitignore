@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Created by .ignore support plugin (hsz.mobi)
 ### Example user template template
 ### Example user template
@@ -6,7 +6,11 @@
 # IntelliJ project files
 .idea
 *.iml
-
+.classpath
+.project
+.settings/
+webShopBack.iml
+web/
 out
 gen
 target
@@ -35,4 +39,4 @@ target
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
->>>>>>> 628f8df09550a33b8f9567d7c6f85f9faf0254df
+

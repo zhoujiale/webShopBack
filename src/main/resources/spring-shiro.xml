@@ -6,13 +6,16 @@
 
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
     <!--shrio过滤器-->
+    <!--自定义过滤-->
+    <bean id="loginFilter" class="com.webShopBack.shrio.loginFilter"/>
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <!--未授权-->
-        <property name="unauthorizedUrl" value="/index.jsp"/>
+        <!--<property name="unauthorizedUrl" value="/index.jsp"/>-->
         <property name="filters">
             <util:map>
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
+                <entry key="login" value="loginFilter"/>
             </util:map>
         </property>
         <property name="filterChainDefinitions">
